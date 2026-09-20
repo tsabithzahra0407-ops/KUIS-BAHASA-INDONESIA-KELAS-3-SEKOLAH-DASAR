@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petualangan Detektif Cerita Cilik - Kelas 3 SD</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Fredoka & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            blue: '#3B82F6',
+                            yellow: '#F59E0B',
+                            green: '#10B981',
+                            red: '#EF4444',
+                            purple: '#8B5CF6',
+                            bg: '#F0F9FF'
+                        }
+                    },
+                    fontFamily: {
+                        heading: ['Fredoka', 'sans-serif'],
+                        body: ['Plus Jakarta Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #E0F2FE 0%, #F0FDF4 50%, #FEF3C7 100%);
+            min-height: 100vh;
+        }
+
+        .font-heading {
+            font-family: 'Fredoka', cursive;
+        }
+
+        .bounce-in {
+            animation: bounceIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.85); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .shake {
+            animation: shake 0.4s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+
+        .pulse-star {
+            animation: pulseStar 1.5s infinite ease-in-out;
+        }
+
+        @keyframes pulseStar {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center p-3 sm:p-5 text-slate-800 antialiased min-h-screen">
+
+    <!-- MAIN APP CONTAINER -->
+    <div id="app" class="w-full max-w-lg bg-white/95 backdrop-blur-sm rounded-3xl p-5 sm:p-6 shadow-2xl border-4 border-sky-200 relative overflow-hidden my-auto">
+        
+        <!-- HEADER (Applies to Student & Home View) -->
+        <header id="main-header" class="mb-4 pb-3 border-b-2 border-sky-100 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <span class="text-3xl pulse-star">🕵️‍♂️</span>
+                <div>
+                    <h1 class="text-lg font-bold font-heading text-sky-900 leading-tight">Detektif Cerita Cilik</h1>
+                    <p class="text-xs font-bold text-sky-600">Bahasa Indonesia • Kelas 3 SD</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2">
+                <!-- BGM Control Button -->
+                <button id="bgm-btn" onclick="toggleBGM()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-100 hover:bg-amber-200 text-xs font-bold text-amber-800 transition-all active:scale-95 border-2 border-amber-300 shadow-sm">
+                    <span id="bgm-icon">🔇</span>
+                    <span id="bgm-text" class="hidden sm:inline">Musik Off</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- 1. LANDING / ROLE SELECTION SCREEN -->
+        <section id="role-screen" class="space-y-5 text-center py-2 bounce-in">
+            <div class="space-y-1">
+                <span class="inline-block bg-sky-100 text-sky-800 text-xs font-extrabold uppercase tracking-wider px-3 py-1 rounded-full border border-sky-200">
+                    Selamat Datang!
+                </span>
+                <h2 class="text-2xl font-bold font-heading text-slate-800">Pilih Peran Kamu:</h2>
+                <p class="text-xs text-slate-500">Pilih salah satu tombol di bawah ini untuk memulai.</p>
+            </div>
+
+            <div class="grid grid-cols-1 gap-3.5 pt-1">
+                <!-- Option Siswa -->
+                <button onclick="goToStudentForm()" class="group relative bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-500 hover:to-blue-600 text-white p-4 rounded-2xl shadow-lg border-b-4 border-blue-700 transition-all active:scale-95 flex items-center gap-4 text-left">
+                    <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center text-3xl flex-shrink-0">
+                        👦
+                    </div>
+                    <div>
+                        <div class="font-heading text-lg font-bold">Masuk Sebagai Siswa</div>
+                        <div class="text-xs text-sky-100">Kerjakan kuis interaktif & kumpulkan nilai!</div>
+                    </div>
+                </button>
+
+                <!-- Option Guru -->
+                <button onclick="goToTeacherAuth()" class="group relative bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white p-4 rounded-2xl shadow-lg border-b-4 border-indigo-800 transition-all active:scale-95 flex items-center gap-4 text-left">
+                    <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center text-3xl flex-shrink-0">
+                        👩‍🏫
+                    </div>
+                    <div>
+                        <div class="font-heading text-lg font-bold">Dashboard Guru</div>
+                        <div class="text-xs text-purple-100">Rekap nilai siswa & kelola data pembelajaran.</div>
+                    </div>
+                </button>
+            </div>
+        </section>
+
+        <!-- 2. STUDENT FORM SCREEN -->
+        <section id="student-form-screen" class="hidden space-y-4 text-center bounce-in py-1">
+            <div class="text-4xl mb-1">📝</div>
+            <div class="space-y-1">
+                <h2 class="text-xl font-bold font-heading text-slate-800">Isi Data Diri Siswa</h2>
+                <p class="text-xs text-slate-500">Masukkan nama dan kelas sebelum memulai kuis.</p>
+            </div>
+
+            <form onsubmit="startQuiz(event)" class="space-y-3.5 text-left bg-sky-50/70 border-2 border-sky-100 p-4 rounded-2xl">
+                <div>
+                    <label for="student-name" class="block text-xs font-bold text-sky-900 mb-1">Nama Lengkap Siswa:</label>
+                    <input type="text" id="student-name" required placeholder="Contoh: Budi Santoso" class="w-full px-3.5 py-2.5 rounded-xl border-2 border-sky-200 focus:border-sky-500 focus:outline-none text-sm font-bold text-slate-800">
+                </div>
+
+                <div>
+                    <label for="student-class" class="block text-xs font-bold text-sky-900 mb-1">Kelas:</label>
+                    <select id="student-class" required class="w-full px-3.5 py-2.5 rounded-xl border-2 border-sky-200 focus:border-sky-500 focus:outline-none text-sm font-bold text-slate-800 bg-white">
+                        <option value="3A">Kelas 3A</option>
+                        <option value="3B">Kelas 3B</option>
+                        <option value="3C">Kelas 3C</option>
+                        <option value="3D">Kelas 3D</option>
+                    </select>
+                </div>
+
+                <div class="pt-2 flex gap-2">
+                    <button type="button" onclick="showScreen('role-screen')" class="w-1/3 bg-slate-200 hover:bg-slate-300 text-slate-700 font-heading font-bold py-2.5 px-3 rounded-xl text-xs transition-all">
+                        ⬅ Kembali
+                    </button>
+                    <button type="submit" class="w-2/3 bg-emerald-500 hover:bg-emerald-600 active:scale-95 text-white font-heading font-bold py-2.5 px-4 rounded-xl text-sm shadow-md border-b-4 border-emerald-700 transition-all flex items-center justify-center gap-1.5">
+                        <span>🚀 Mulai Kuis</span>
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- 3. STUDENT QUIZ SCREEN -->
+        <main id="quiz-screen" class="hidden space-y-3.5">
+            <!-- Student Header Badge -->
+            <div class="flex justify-between items-center bg-sky-50 px-3 py-1.5 rounded-xl border border-sky-200 text-xs font-bold">
+                <span class="text-sky-900">👤 <span id="display-student-info">Budi (3A)</span></span>
+                <span id="score-counter" class="text-amber-600 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">⭐ Skor: 0</span>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="space-y-1">
+                <div class="flex justify-between items-center text-[11px] font-black text-slate-500">
+                    <span id="q-counter" class="bg-sky-100 text-sky-700 px-2.5 py-0.5 rounded-full">Soal 1 dari 5</span>
+                    <span id="q-category" class="text-indigo-600 font-extrabold">Struktur Cerita</span>
+                </div>
+                <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden p-0.5 border border-slate-200 shadow-inner">
+                    <div id="progress-bar" class="bg-gradient-to-r from-sky-400 via-teal-400 to-emerald-400 h-full rounded-full transition-all duration-300 w-1/5"></div>
+                </div>
+            </div>
+
+            <!-- Illustration Container (SVG) -->
+            <div id="illustration-box" class="w-full h-32 sm:h-36 bg-sky-50 rounded-2xl border-2 border-sky-100 flex items-center justify-center p-2 shadow-inner overflow-hidden">
+                <!-- Inline SVGs dynamically loaded -->
+            </div>
+
+            <!-- Question Text Box -->
+            <div class="bg-amber-50/80 border-2 border-amber-200/60 rounded-2xl p-3 sm:p-3.5 text-center shadow-sm">
+                <h2 id="q-text" class="text-xs sm:text-sm font-bold text-slate-800 leading-relaxed font-body">
+                    Loading soal...
+                </h2>
+            </div>
+
+            <!-- Options Grid -->
+            <div id="options-container" class="space-y-2">
+                <!-- Dynamic Options -->
+            </div>
+
+            <!-- Instant Feedback Banner -->
+            <div id="feedback-alert" class="hidden p-2.5 rounded-2xl text-center font-bold text-xs sm:text-sm bounce-in shadow-md"></div>
+
+            <!-- Next Question Button -->
+            <button id="next-btn" onclick="nextQuestion()" class="hidden w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 active:scale-95 text-white font-heading text-sm font-bold py-3 px-5 rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2 border-b-4 border-teal-800">
+                <span>Soal Berikutnya</span>
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+            </button>
+        </main>
+
+        <!-- 4. STUDENT RESULT SCREEN -->
+        <div id="result-screen" class="hidden text-center space-y-3.5 py-1 bounce-in">
+            <div class="text-5xl mb-1" id="res-emoji">🏆</div>
+            
+            <div>
+                <span id="res-badge" class="inline-block bg-purple-100 text-purple-800 text-xs font-extrabold uppercase px-3 py-1 rounded-full mb-1">
+                    Kuis Selesai!
+                </span>
+                <h2 id="res-title" class="text-2xl font-bold font-heading text-slate-800">Luar Biasa!</h2>
+                <p class="text-slate-500 text-xs">Nilaimu telah otomatis terkirim ke Rekap Guru 👩‍🏫</p>
+            </div>
+
+            <!-- Score Display Box -->
+            <div class="bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-amber-200 rounded-2xl p-3.5 max-w-xs mx-auto shadow-md">
+                <div class="text-[10px] font-extrabold text-amber-700 uppercase tracking-wider mb-0.5">Nilai Akhir Kamu</div>
+                <div class="text-4xl font-black font-heading text-amber-600" id="final-score">100</div>
+                <div id="final-subtext" class="text-xs font-bold text-slate-600 mt-1">5 dari 5 Soal Benar (100%)</div>
+            </div>
+
+            <!-- Star Rating -->
+            <div id="star-rating" class="text-2xl flex justify-center gap-1.5">
+                ⭐ ⭐ ⭐
+            </div>
+
+            <!-- Review & Feedback Explanation Section -->
+            <div class="text-left space-y-2 pt-2 border-t-2 border-slate-100">
+                <h3 class="font-heading font-bold text-slate-800 text-xs flex items-center gap-1.5">
+                    <span>💡</span> Pembahasan & Alasan Jawaban:
+                </h3>
+                <div id="review-list" class="space-y-2 text-xs max-h-40 overflow-y-auto pr-1">
+                    <!-- Dynamic Answer Reviews -->
+                </div>
+            </div>
+
+            <!-- Restart Button -->
+            <div class="pt-1 flex gap-2">
+                <button onclick="showScreen('role-screen')" class="w-1/2 bg-slate-200 hover:bg-slate-300 text-slate-700 font-heading font-bold py-2.5 px-3 rounded-2xl text-xs transition-all">
+                    🏠 Menu Utama
+                </button>
+                <button onclick="restartQuiz()" class="w-1/2 bg-sky-500 hover:bg-sky-600 active:scale-95 text-white font-heading font-bold py-2.5 px-3 rounded-2xl text-xs shadow-md border-b-4 border-sky-700 transition-all">
+                    🔄 Coba Lagi
+                </button>
+            </div>
+        </div>
+
+        <!-- 5. TEACHER PIN AUTH SCREEN -->
+        <section id="teacher-auth-screen" class="hidden space-y-4 text-center bounce-in py-2">
+            <div class="text-4xl mb-1">🔐</div>
+            <div class="space-y-1">
+                <h2 class="text-xl font-bold font-heading text-slate-800">Verifikasi Guru</h2>
+                <p class="text-xs text-slate-500">Masukkan PIN Keamanan untuk mengakses Dashboard Guru.</p>
+            </div>
+
+            <form onsubmit="verifyTeacherPIN(event)" class="space-y-3 max-w-xs mx-auto bg-purple-50/70 border-2 border-purple-100 p-4 rounded-2xl">
+                <div>
+                    <input type="password" id="teacher-pin" maxlength="6" required placeholder="Masukkan PIN Guru" class="w-full text-center tracking-widest text-lg font-black px-3.5 py-2 rounded-xl border-2 border-purple-200 focus:border-purple-500 focus:outline-none text-slate-800">
+                    <p class="text-[11px] font-bold text-purple-600 mt-1.5">💡 PIN Default Demo: <span class="underline">1234</span></p>
+                </div>
+
+                <div id="pin-error" class="hidden text-xs font-bold text-rose-600 bg-rose-50 p-2 rounded-lg border border-rose-200">
+                    ⚠️ PIN Salah! Silakan coba lagi.
+                </div>
+
+                <div class="flex gap-2 pt-1">
+                    <button type="button" onclick="showScreen('role-screen')" class="w-1/2 bg-slate-200 hover:bg-slate-300 text-slate-700 font-heading font-bold py-2 px-3 rounded-xl text-xs transition-all">
+                        ⬅ Kembali
+                    </button>
+                    <button type="submit" class="w-1/2 bg-purple-600 hover:bg-purple-700 text-white font-heading font-bold py-2 px-3 rounded-xl text-xs shadow-md border-b-4 border-purple-900 transition-all">
+                        🔓 Masuk
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- 6. TEACHER DASHBOARD SCREEN -->
+        <section id="teacher-dashboard-screen" class="hidden space-y-3.5 bounce-in">
+            <div class="flex items-center justify-between pb-2 border-b-2 border-purple-100">
+                <div class="flex items-center gap-2">
+                    <span class="text-2xl">👩‍🏫</span>
+                    <div>
+                        <h2 class="text-base font-bold font-heading text-purple-900 leading-tight">Rekap Nilai Siswa</h2>
+                        <p class="text-[11px] font-bold text-slate-500">Hasil Kuis Formatif Bahasa Indonesia</p>
+                    </div>
+                </div>
+                <button onclick="showScreen('role-screen')" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-[11px] font-bold text-slate-600 transition-all">
+                    🚪 Keluar
+                </button>
+            </div>
+
+            <!-- Stats & Filter Bar -->
+            <div class="grid grid-cols-2 gap-2 text-center text-xs">
+                <div class="bg-sky-50 border border-sky-200 p-2 rounded-xl">
+                    <div class="text-[10px] text-sky-600 font-bold">Total Siswa Ujian</div>
+                    <div id="stat-total-students" class="text-lg font-black font-heading text-sky-900">0</div>
+                </div>
+                <div class="bg-emerald-50 border border-emerald-200 p-2 rounded-xl">
+                    <div class="text-[10px] text-emerald-600 font-bold">Rata-rata Nilai</div>
+                    <div id="stat-avg-score" class="text-lg font-black font-heading text-emerald-900">0</div>
+                </div>
+            </div>
+
+            <!-- Search Bar & Controls -->
+            <div class="flex gap-2">
+                <input type="text" id="teacher-search" oninput="renderResultsTable()" placeholder="🔍 Cari nama siswa / kelas..." class="w-full text-xs px-3 py-2 rounded-xl border border-slate-300 focus:outline-none focus:border-purple-500">
+                <button onclick="exportDataCSV()" title="Cetak / Export" class="px-3 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs flex items-center gap-1 flex-shrink-0 shadow-sm">
+                    📥 Export
+                </button>
+            </div>
+
+            <!-- Results Table Container -->
+            <div class="border border-slate-200 rounded-xl overflow-hidden max-h-56 overflow-y-auto bg-white text-xs">
+                <table class="w-full text-left border-collapse">
+                    <thead class="bg-slate-100 text-slate-700 font-bold sticky top-0 border-b border-slate-200 text-[11px]">
+                        <tr>
+                            <th class="p-2">No</th>
+                            <th class="p-2">Nama Siswa</th>
+                            <th class="p-2">Kelas</th>
+                            <th class="p-2">Skor</th>
+                            <th class="p-2">Waktu</th>
+                        </tr>
+                    </thead>
+                    <tbody id="results-tbody" class="divide-y divide-slate-100 font-medium text-slate-700">
+                        <!-- Dynamic Rows -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Bottom Action Row -->
+            <div class="flex justify-between items-center text-[11px] pt-1">
+                <button onclick="confirmClearData()" class="text-rose-600 hover:text-rose-800 font-bold flex items-center gap-1">
+                    🗑️ Hapus Semua Data
+                </button>
+                <span id="sync-status" class="text-slate-400 italic">🟢 Real-time Synced</span>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Firebase Standard Integration -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Global Variables & State
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'kuis-bahasa-indonesia-kelas-3';
+        let db = null;
+        let auth = null;
+        let user = null;
+        let studentResults = [];
+
+        // Try initializing Firebase safely
+        try {
+            if (typeof __firebase_config !== 'undefined') {
+                const firebaseConfig = JSON.parse(__firebase_config);
+                const app = initializeApp(firebaseConfig);
+                auth = getAuth(app);
+                db = getFirestore(app);
+
+                // Authenticate first
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    signInWithCustomToken(auth, __initial_auth_token).then(res => {
+                        user = res.user;
+                        initFirestoreSync();
+                    }).catch(() => {
+                        signInAnonymously(auth).then(res => {
+                            user = res.user;
+                            initFirestoreSync();
+                        });
+                    });
+                } else {
+                    signInAnonymously(auth).then(res => {
+                        user = res.user;
+                        initFirestoreSync();
+                    });
+                }
+            } else {
+                fallbackLocalStorage();
+            }
+        } catch (e) {
+            console.warn("Firebase fallback to LocalStorage:", e);
+            fallbackLocalStorage();
+        }
+
+        function initFirestoreSync() {
+            if (!db || !user) return;
+            const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'quiz_results');
+            onSnapshot(colRef, (snapshot) => {
+                studentResults = [];
+                snapshot.forEach((doc) => {
+                    studentResults.push({ id: doc.id, ...doc.data() });
+                });
+                studentResults.sort((a, b) => b.timestamp - a.timestamp);
+                window.studentResults = studentResults;
+                if (typeof window.renderResultsTable === 'function') {
+                    window.renderResultsTable();
+                }
+            }, (err) => {
+                console.error("Firestore sync error:", err);
+                fallbackLocalStorage();
+            });
+        }
+
+        function fallbackLocalStorage() {
+            const localData = localStorage.getItem('quiz_results_data');
+            if (localData) {
+                try { studentResults = JSON.parse(localData); } catch (e) { studentResults = []; }
+            }
+            window.studentResults = studentResults;
+        }
+
+        // Global helper to save results
+        window.saveQuizResultToCloud = async function(data) {
+            studentResults.unshift(data);
+            localStorage.setItem('quiz_results_data', JSON.stringify(studentResults));
+            window.studentResults = studentResults;
+
+            if (db && user) {
+                try {
+                    const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'quiz_results');
+                    await addDoc(colRef, data);
+                } catch (err) {
+                    console.error("Failed writing to Firestore:", err);
+                }
+            }
+        };
+
+        // Global helper to clear data
+        window.clearAllDataCloud = async function() {
+            localStorage.removeItem('quiz_results_data');
+            if (db && user) {
+                try {
+                    const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'quiz_results');
+                    const snapshot = await getDocs(colRef);
+                    snapshot.forEach(async (d) => {
+                        await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'quiz_results', d.id));
+                    });
+                } catch (e) {
+                    console.error("Error clearing collection:", e);
+                }
+            }
+            studentResults = [];
+            window.studentResults = [];
+            window.renderResultsTable();
+        };
+    </script>
+
+    <script>
+        // Audio Synthesizer Engine
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        let audioCtx = null;
+        let bgmInterval = null;
+        let isBgmPlaying = false;
+
+        function initAudio() {
+            if (!audioCtx) audioCtx = new AudioContext();
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+        }
+
+        function playBGM() {
+            if (bgmInterval || !isBgmPlaying) return;
+            initAudio();
+            const notes = [261.63, 329.63, 392.00, 523.25, 440.00, 349.23, 392.00, 329.63];
+            let step = 0;
+
+            bgmInterval = setInterval(() => {
+                if (!isBgmPlaying) return;
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(notes[step % notes.length], audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.025, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.35);
+                step++;
+            }, 400);
+        }
+
+        function stopBGM() {
+            if (bgmInterval) {
+                clearInterval(bgmInterval);
+                bgmInterval = null;
+            }
+        }
+
+        function toggleBGM() {
+            initAudio();
+            isBgmPlaying = !isBgmPlaying;
+            const bgmIcon = document.getElementById('bgm-icon');
+            const bgmText = document.getElementById('bgm-text');
+
+            if (isBgmPlaying) {
+                bgmIcon.innerText = '🎵';
+                if (bgmText) bgmText.innerText = 'Musik On';
+                playBGM();
+            } else {
+                bgmIcon.innerText = '🔇';
+                if (bgmText) bgmText.innerText = 'Musik Off';
+                stopBGM();
+            }
+        }
+
+        function playSfx(type) {
+            initAudio();
+            if (!audioCtx) return;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            const now = audioCtx.currentTime;
+
+            if (type === 'correct') {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(523.25, now);
+                osc.frequency.exponentialRampToValueAtTime(880, now + 0.15);
+                gain.gain.setValueAtTime(0.2, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+                osc.start(now);
+                osc.stop(now + 0.3);
+            } else if (type === 'wrong') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(220, now);
+                osc.frequency.exponentialRampToValueAtTime(130, now + 0.25);
+                gain.gain.setValueAtTime(0.2, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+                osc.start(now);
+                osc.stop(now + 0.3);
+            } else if (type === 'win') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(440, now);
+                osc.frequency.exponentialRampToValueAtTime(880, now + 0.45);
+                gain.gain.setValueAtTime(0.25, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+                osc.start(now);
+                osc.stop(now + 0.5);
+            }
+        }
+
+        // Quiz Question Data
+        const quizData = [
+            {
+                category: "Struktur Cerita • Peta Cerita",
+                question: "Sore hari di lapangan desa, Budi dan Lani bersiap bermain bola bersama. Kejadian ini berada di bagian...",
+                svg: `<svg viewBox="0 0 200 120" class="w-full h-full">
+                        <rect width="200" height="120" rx="12" fill="#E0F2FE"/>
+                        <circle cx="160" cy="30" r="16" fill="#FDE047"/>
+                        <path d="M 0 90 Q 100 70 200 90 L 200 120 L 0 120 Z" fill="#86EFAC"/>
+                        <circle cx="60" cy="65" r="12" fill="#FDBA74"/>
+                        <rect x="52" y="77" width="16" height="20" rx="4" fill="#3B82F6"/>
+                        <circle cx="120" cy="65" r="12" fill="#FDBA74"/>
+                        <rect x="112" y="77" width="16" height="20" rx="4" fill="#EC4899"/>
+                        <circle cx="90" cy="92" r="8" fill="#FFFFFF" stroke="#334155" stroke-width="2"/>
+                      </svg>`,
+                options: [
+                    { text: "Awal Cerita (Pengenalan)", correct: true },
+                    { text: "Tengah Cerita (Masalah Utama)", correct: false },
+                    { text: "Akhir Cerita (Penyelesaian)", correct: false }
+                ],
+                explanation: "Bagian Awal Cerita bertugas mengenalkan tokoh (Budi & Lani), tempat (lapangan), dan situasi awal."
+            },
+            {
+                category: "Struktur Cerita • Peta Cerita",
+                question: "Saat sedang seru mengejar bola, Budi tiba-tiba tersandung dan terjatuh. Kejadian ini terdapat di bagian...",
+                svg: `<svg viewBox="0 0 200 120" class="w-full h-full">
+                        <rect width="200" height="120" rx="12" fill="#FEF3C7"/>
+                        <path d="M 0 90 Q 100 75 200 90 L 200 120 L 0 120 Z" fill="#86EFAC"/>
+                        <circle cx="75" cy="80" r="11" fill="#FDBA74"/>
+                        <rect x="50" y="85" width="22" height="12" rx="3" fill="#3B82F6" transform="rotate(-15 50 85)"/>
+                        <path d="M 90 75 L 105 70 M 92 85 L 108 82" stroke="#EF4444" stroke-width="3" stroke-linecap="round"/>
+                        <circle cx="130" cy="85" r="8" fill="#FFFFFF" stroke="#334155" stroke-width="2"/>
+                      </svg>`,
+                options: [
+                    { text: "Awal Cerita", correct: false },
+                    { text: "Tengah Cerita (Masalah)", correct: true },
+                    { text: "Akhir Cerita", correct: false }
+                ],
+                explanation: "Bagian Tengah Cerita memuat kejadian penting, kejutan, atau masalah utama yang dialami oleh tokoh."
+            },
+            {
+                category: "Pemahaman Isi • Kalimat Rumpang",
+                question: "Lengkapi kalimat berikut: \"Lani melihat Budi jatuh, lalu ia segera ... Budi untuk berdiri kembali.\"",
+                svg: `<svg viewBox="0 0 200 120" class="w-full h-full">
+                        <rect width="200" height="120" rx="12" fill="#F0FDF4"/>
+                        <path d="M 0 90 Q 100 80 200 90 L 200 120 L 0 120 Z" fill="#86EFAC"/>
+                        <circle cx="80" cy="65" r="11" fill="#FDBA74"/>
+                        <rect x="72" y="76" width="16" height="20" rx="4" fill="#EC4899"/>
+                        <circle cx="105" cy="72" r="11" fill="#FDBA74"/>
+                        <rect x="97" y="83" width="16" height="16" rx="4" fill="#3B82F6"/>
+                        <path d="M 92 50 C 92 45, 85 45, 85 50 C 85 55, 92 58, 92 62 C 92 58, 99 55, 99 50 C 99 45, 92 45, 92 50 Z" fill="#EF4444"/>
+                      </svg>`,
+                options: [
+                    { text: "membantu", correct: true },
+                    { text: "menertawakan", correct: false },
+                    { text: "meninggalkan", correct: false }
+                ],
+                explanation: "Kata 'membantu' adalah tindakan terpuji dan paling tepat sesuai alur cerita."
+            },
+            {
+                category: "Kaidah PUEBI • Huruf Kapital",
+                question: "Manakah penulisan kalimat yang BENAR sesuai aturan penggunaan huruf kapital?",
+                svg: `<svg viewBox="0 0 200 120" class="w-full h-full">
+                        <rect width="200" height="120" rx="12" fill="#F3E8FF"/>
+                        <rect x="50" y="30" width="100" height="60" rx="8" fill="#FFFFFF" stroke="#8B5CF6" stroke-width="3"/>
+                        <line x1="100" y1="30" x2="100" y2="90" stroke="#8B5CF6" stroke-width="2" stroke-dasharray="3,3"/>
+                        <text x="62" y="58" font-family="Fredoka" font-size="22" font-weight="bold" fill="#8B5CF6">A b c</text>
+                        <text x="112" y="58" font-family="Fredoka" font-size="22" font-weight="bold" fill="#10B981">A B C</text>
+                      </svg>`,
+                options: [
+                    { text: "budi dan lani bermain bersama.", correct: false },
+                    { text: "Budi dan Lani bermain bersama.", correct: true },
+                    { text: "budi dan Lani Bermain bersama.", correct: false }
+                ],
+                explanation: "Awal kalimat dan nama orang (Budi & Lani) WAJIB diawali huruf kapital (besar)."
+            },
+            {
+                category: "Kaidah PUEBI • Tanda Baca",
+                question: "Tanda baca apakah yang tepat untuk diletakkan pada AKHIR kalimat berita?",
+                svg: `<svg viewBox="0 0 200 120" class="w-full h-full">
+                        <rect width="200" height="120" rx="12" fill="#FEF2F2"/>
+                        <circle cx="100" cy="55" r="16" fill="#EF4444"/>
+                        <text x="100" y="100" font-family="Fredoka" font-size="16" font-weight="bold" fill="#991B1B" text-anchor="middle">Tanda Titik ( . )</text>
+                      </svg>`,
+                options: [
+                    { text: "Tanda Titik ( . )", correct: true },
+                    { text: "Tanda Tanya ( ? )", correct: false },
+                    { text: "Tanda Koma ( , )", correct: false }
+                ],
+                explanation: "Tanda Titik ( . ) digunakan untuk mengakhiri kalimat berita atau pernyataan."
+            }
+        ];
+
+        // State Variables
+        let currentStudent = { name: '', class: '' };
+        let currentIdx = 0;
+        let score = 0;
+        let answered = false;
+        let userAnswers = [];
+
+        // Screen Navigation Function
+        function showScreen(screenId) {
+            const screens = ['role-screen', 'student-form-screen', 'quiz-screen', 'result-screen', 'teacher-auth-screen', 'teacher-dashboard-screen'];
+            screens.forEach(s => {
+                const el = document.getElementById(s);
+                if (el) el.classList.add('hidden');
+            });
+
+            const target = document.getElementById(screenId);
+            if (target) target.classList.remove('hidden');
+
+            const header = document.getElementById('main-header');
+            if (screenId === 'teacher-dashboard-screen') {
+                header.classList.add('hidden');
+            } else {
+                header.classList.remove('hidden');
+            }
+
+            if (screenId === 'teacher-dashboard-screen') {
+                renderResultsTable();
+            }
+        }
+
+        function goToStudentForm() {
+            showScreen('student-form-screen');
+        }
+
+        function goToTeacherAuth() {
+            document.getElementById('teacher-pin').value = '';
+            document.getElementById('pin-error').classList.add('hidden');
+            showScreen('teacher-auth-screen');
+        }
+
+        function verifyTeacherPIN(e) {
+            e.preventDefault();
+            const pin = document.getElementById('teacher-pin').value;
+            if (pin === '1234') {
+                showScreen('teacher-dashboard-screen');
+            } else {
+                document.getElementById('pin-error').classList.remove('hidden');
+            }
+        }
+
+        function startQuiz(e) {
+            e.preventDefault();
+            const name = document.getElementById('student-name').value.trim();
+            const studentClass = document.getElementById('student-class').value;
+
+            if (!name) return;
+
+            currentStudent = { name: name, class: studentClass };
+            document.getElementById('display-student-info').innerText = `${name} (${studentClass})`;
+
+            currentIdx = 0;
+            score = 0;
+            userAnswers = [];
+
+            showScreen('quiz-screen');
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            answered = false;
+            document.getElementById('feedback-alert').classList.add('hidden');
+            document.getElementById('next-btn').classList.add('hidden');
+
+            const q = quizData[currentIdx];
+            document.getElementById('q-category').innerText = q.category;
+            document.getElementById('q-text').innerText = q.question;
+            document.getElementById('q-counter').innerText = `Soal ${currentIdx + 1} dari ${quizData.length}`;
+            document.getElementById('score-counter').innerText = `⭐ Skor: ${score}`;
+            document.getElementById('progress-bar').style.width = `${((currentIdx + 1) / quizData.length) * 100}%`;
+            
+            document.getElementById('illustration-box').innerHTML = q.svg;
+
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+
+            q.options.forEach((opt, i) => {
+                const btn = document.createElement('button');
+                btn.className = `option-btn w-full text-left p-3 rounded-2xl border-2 border-slate-200 bg-white hover:border-sky-300 hover:bg-sky-50/60 font-bold text-slate-700 transition-all active:scale-98 flex items-center justify-between text-xs sm:text-sm shadow-sm`;
+                btn.onclick = () => selectOption(i, btn);
+                btn.innerHTML = `
+                    <div class="flex items-center gap-2.5">
+                        <span class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-sky-100 text-sky-700 font-black text-xs flex items-center justify-center border border-sky-200 flex-shrink-0">
+                            ${String.fromCharCode(65 + i)}
+                        </span>
+                        <span class="leading-snug">${opt.text}</span>
+                    </div>
+                    <span class="status-icon text-base"></span>
+                `;
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function selectOption(idx, btn) {
+            if (answered) return;
+            answered = true;
+
+            const q = quizData[currentIdx];
+            const isCorrect = q.options[idx].correct;
+            userAnswers.push({ 
+                question: q.question, 
+                selected: q.options[idx].text, 
+                isCorrect: isCorrect, 
+                explanation: q.explanation 
+            });
+
+            const optionsContainer = document.getElementById('options-container');
+            const allBtns = optionsContainer.querySelectorAll('.option-btn');
+            const feedbackAlert = document.getElementById('feedback-alert');
+
+            if (isCorrect) {
+                playSfx('correct');
+                score += 20;
+                document.getElementById('score-counter').innerText = `⭐ Skor: ${score}`;
+
+                btn.classList.remove('border-slate-200', 'bg-white');
+                btn.classList.add('border-emerald-500', 'bg-emerald-50', 'text-emerald-900');
+                btn.querySelector('.status-icon').innerText = '✅';
+
+                feedbackAlert.className = 'p-2.5 rounded-2xl text-center font-bold text-xs sm:text-sm bounce-in bg-emerald-100 text-emerald-900 border-2 border-emerald-300 shadow-sm';
+                feedbackAlert.innerHTML = `🎉 HEBAT! Jawabanmu Tepat Sekali!`;
+                feedbackAlert.classList.remove('hidden');
+            } else {
+                playSfx('wrong');
+                btn.classList.remove('border-slate-200', 'bg-white');
+                btn.classList.add('border-rose-400', 'bg-rose-50', 'text-rose-900', 'shake');
+                btn.querySelector('.status-icon').innerText = '❌';
+
+                allBtns.forEach((b, i) => {
+                    if (q.options[i].correct) {
+                        b.classList.remove('border-slate-200');
+                        b.classList.add('border-emerald-400', 'bg-emerald-50');
+                        b.querySelector('.status-icon').innerText = '💡';
+                    }
+                });
+
+                feedbackAlert.className = 'p-2.5 rounded-2xl text-center font-bold text-xs sm:text-sm bounce-in bg-amber-100 text-amber-900 border-2 border-amber-300 shadow-sm';
+                feedbackAlert.innerHTML = `💪 OOPS! Tidak apa-apa, yuk pelajari jawabannya nanti!`;
+                feedbackAlert.classList.remove('hidden');
+            }
+
+            allBtns.forEach(b => b.onclick = null);
+            document.getElementById('next-btn').classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            currentIdx++;
+            if (currentIdx < quizData.length) {
+                loadQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function finishQuiz() {
+            playSfx('win');
+            const correctCount = score / 20;
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('id-ID', { day: '2-digit', month: 'short' });
+            const timeStr = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+
+            const resultPayload = {
+                name: currentStudent.name,
+                class: currentStudent.class,
+                score: score,
+                correctCount: correctCount,
+                totalQuestions: quizData.length,
+                date: `${dateStr}, ${timeStr}`,
+                timestamp: Date.now()
+            };
+
+            // Save automatically
+            if (window.saveQuizResultToCloud) {
+                window.saveQuizResultToCloud(resultPayload);
+            }
+
+            // Display Results
+            showScreen('result-screen');
+            document.getElementById('final-score').innerText = score;
+            document.getElementById('final-subtext').innerText = `${correctCount} dari ${quizData.length} Soal Benar (${score}%)`;
+
+            const starContainer = document.getElementById('star-rating');
+            if (score === 100) {
+                document.getElementById('res-emoji').innerText = '🏆';
+                document.getElementById('res-title').innerText = 'Sempurna! Detektif Handal!';
+                starContainer.innerText = '⭐ ⭐ ⭐';
+                if (window.confetti) confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
+            } else if (score >= 60) {
+                document.getElementById('res-emoji').innerText = '🌟';
+                document.getElementById('res-title').innerText = 'Bagus Sekali!';
+                starContainer.innerText = '⭐ ⭐ ☆';
+            } else {
+                document.getElementById('res-emoji').innerText = '📘';
+                document.getElementById('res-title').innerText = 'Tetap Semangat Belajar!';
+                starContainer.innerText = '⭐ ☆ ☆';
+            }
+
+            // Render Answers Review
+            const reviewList = document.getElementById('review-list');
+            reviewList.innerHTML = '';
+            userAnswers.forEach((ans, i) => {
+                const item = document.createElement('div');
+                item.className = `p-2.5 rounded-xl border-2 text-xs ${ans.isCorrect ? 'bg-emerald-50/90 border-emerald-200' : 'bg-rose-50/90 border-rose-200'}`;
+                item.innerHTML = `
+                    <div class="font-bold text-slate-800">${i + 1}. ${ans.question}</div>
+                    <div class="mt-0.5 font-extrabold ${ans.isCorrect ? 'text-emerald-700' : 'text-rose-700'}">
+                        Jawabanmu: ${ans.selected} ${ans.isCorrect ? '✅ (Benar)' : '❌ (Kurang Tepat)'}
+                    </div>
+                    <div class="text-slate-600 text-[11px] mt-1 bg-white/80 p-1.5 rounded-lg border border-slate-200/80">
+                        💡 <strong>Penjelasan:</strong> ${ans.explanation}
+                    </div>
+                `;
+                reviewList.appendChild(item);
+            });
+        }
+
+        function restartQuiz() {
+            showScreen('student-form-screen');
+        }
+
+        // Render Teacher Dashboard Table & Analytics
+        window.renderResultsTable = function() {
+            const tbody = document.getElementById('results-tbody');
+            if (!tbody) return;
+
+            const results = window.studentResults || [];
+            const filterText = (document.getElementById('teacher-search')?.value || '').toLowerCase();
+
+            const filtered = results.filter(r => 
+                r.name.toLowerCase().includes(filterText) || 
+                r.class.toLowerCase().includes(filterText)
+            );
+
+            // Update Stats
+            document.getElementById('stat-total-students').innerText = results.length;
+            if (results.length > 0) {
+                const avg = Math.round(results.reduce((acc, curr) => acc + (curr.score || 0), 0) / results.length);
+                document.getElementById('stat-avg-score').innerText = avg;
+            } else {
+                document.getElementById('stat-avg-score').innerText = '0';
+            }
+
+            tbody.innerHTML = '';
+            if (filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-slate-400 italic">Belum ada data nilai siswa.</td></tr>`;
+                return;
+            }
+
+            filtered.forEach((r, i) => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-50 transition-colors';
+                
+                let scoreBadge = 'bg-emerald-100 text-emerald-800 border-emerald-200';
+                if (r.score < 60) scoreBadge = 'bg-rose-100 text-rose-800 border-rose-200';
+                else if (r.score < 80) scoreBadge = 'bg-amber-100 text-amber-800 border-amber-200';
+
+                tr.innerHTML = `
+                    <td class="p-2 font-bold text-slate-400">${i + 1}</td>
+                    <td class="p-2 font-bold text-slate-800">${r.name}</td>
+                    <td class="p-2 font-extrabold text-purple-700">${r.class}</td>
+                    <td class="p-2">
+                        <span class="px-2 py-0.5 rounded-full border text-[10px] font-black ${scoreBadge}">
+                            ${r.score}
+                        </span>
+                    </td>
+                    <td class="p-2 text-[10px] text-slate-500">${r.date || '-'}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        };
+
+        function confirmClearData() {
+            if (confirm("Apakah Anda yakin ingin menghapus semua data rekap nilai siswa?")) {
+                if (window.clearAllDataCloud) {
+                    window.clearAllDataCloud();
+                }
+            }
+        }
+
+        function exportDataCSV() {
+            const results = window.studentResults || [];
+            if (results.length === 0) {
+                alert("Belum ada data nilai untuk diexport!");
+                return;
+            }
+
+            let csvContent = "data:text/csv;charset=utf-8,No,Nama Siswa,Kelas,Skor,Jawaban Benar,Tanggal\n";
+            results.forEach((r, i) => {
+                csvContent += `${i + 1},"${r.name}","${r.class}",${r.score},${r.correctCount || score / 20},"${r.date}"\n`;
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `Rekap_Nilai_Kuis_Bahasa_Indonesia_${new Date().toISOString().slice(0,10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Initialize Application
+        window.onload = function() {
+            showScreen('role-screen');
+        };
+    </script>
+</body>
+</html>
