@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kuis Interaktif Bahasa Indonesia - Kawan Seiring</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: linear-gradient(135deg, #e0f2fe 0%, #fef3c7 100%);
+      min-height: 100vh;
+    }
+    .font-fun {
+      font-family: 'Fredoka', cursive;
+    }
+    .card-bounce {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card-bounce:active {
+      transform: scale(0.98);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #f1f5f9;
+      border-radius: 8px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body class="flex flex-col min-h-screen text-slate-800 antialiased p-3 sm:p-6">
+
+  <!-- TOP APP BAR -->
+  <header class="w-full max-w-2xl mx-auto flex justify-between items-center bg-white/80 backdrop-blur-md p-4 rounded-2xl shadow-sm border border-white mb-4">
+    <div class="flex items-center gap-3">
+      <span class="text-3xl">📚</span>
+      <div>
+        <h1 class="font-fun text-lg sm:text-xl font-bold text-sky-700 leading-tight">Detektif Cerita Cilik</h1>
+        <p class="text-xs text-slate-500">Bahasa Indonesia • Kelas 3 SD</p>
+      </div>
+    </div>
+    <button id="btnSoundToggle" onclick="toggleAudio()" class="px-3 py-1.5 bg-amber-100 text-amber-800 rounded-xl text-xs font-semibold flex items-center gap-1 hover:bg-amber-200 transition">
+      <span id="soundIcon">🔊</span> <span id="soundText">Musik On</span>
+    </button>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="w-full max-w-2xl mx-auto flex-1 flex flex-col justify-center">
+
+    <!-- 1. LANDING PAGE / ROLE SELECTION -->
+    <section id="secLanding" class="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-sky-100 text-center flex flex-col items-center">
+      <div class="w-24 h-24 bg-sky-100 rounded-full flex items-center justify-center text-5xl mb-4 shadow-inner">
+        🔍
+      </div>
+      <h2 class="font-fun text-2xl sm:text-3xl font-bold text-slate-800 mb-2">Petualangan "Kawan Seiring"</h2>
+      <p class="text-slate-600 text-sm sm:text-base max-w-md mb-6">Pilih peranmu untuk memulai kuis interaktif atau melihat hasil nilai kelas!</p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-md">
+        <!-- Button Siswa -->
+        <button onclick="goToStudentLogin()" class="card-bounce bg-emerald-500 hover:bg-emerald-600 text-white p-5 rounded-2xl font-fun text-lg font-bold shadow-lg shadow-emerald-200 flex flex-col items-center gap-2">
+          <span class="text-4xl">👦👧</span>
+          <span>Masuk Siswa</span>
+          <span class="text-xs font-sans font-normal opacity-90">Mulai Kerjakan Kuis</span>
+        </button>
+
+        <!-- Button Guru -->
+        <button onclick="goToTeacherLogin()" class="card-bounce bg-sky-500 hover:bg-sky-600 text-white p-5 rounded-2xl font-fun text-lg font-bold shadow-lg shadow-sky-200 flex flex-col items-center gap-2">
+          <span class="text-4xl">👩‍🏫</span>
+          <span>Dashboard Guru</span>
+          <span class="text-xs font-sans font-normal opacity-90">Lihat Rekap Nilai</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- 2. STUDENT LOGIN FORM -->
+    <section id="secStudentLogin" class="hidden bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-emerald-100">
+      <button onclick="showSection('secLanding')" class="text-xs font-semibold text-slate-500 hover:text-slate-700 mb-4 flex items-center gap-1">
+        ← Kembali
+      </button>
+      <div class="text-center mb-6">
+        <span class="text-4xl">📝</span>
+        <h2 class="font-fun text-2xl font-bold text-slate-800 mt-2">Data Diri Siswa</h2>
+        <p class="text-xs text-slate-500">Isi nama dan kelasmu sebelum mulai ya!</p>
+      </div>
+
+      <form onsubmit="startQuiz(event)" class="space-y-4 max-w-md mx-auto">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Nama Lengkap</label>
+          <input type="text" id="inputStudentName" required placeholder="Contoh: Budi Santoso" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-sm">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Kelas</label>
+          <select id="selectStudentClass" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-sm bg-white">
+            <option value="">-- Pilih Kelas --</option>
+            <option value="3A">3A</option>
+            <option value="3B">3B</option>
+            <option value="3C">3C</option>
+          </select>
+        </div>
+        <button type="submit" class="card-bounce w-full bg-emerald-500 hover:bg-emerald-600 text-white font-fun font-bold py-3.5 rounded-xl shadow-md text-base mt-2">
+          Mulai Mengerjakan! 🚀
+        </button>
+      </form>
+    </section>
+
+    <!-- 3. TEACHER LOGIN FORM (PIN PROTECTED) -->
+    <section id="secTeacherLogin" class="hidden bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-sky-100 text-center">
+      <button onclick="showSection('secLanding')" class="text-xs font-semibold text-slate-500 hover:text-slate-700 mb-4 flex items-center gap-1">
+        ← Kembali
+      </button>
+      <div class="w-16 h-16 bg-sky-100 text-sky-600 rounded-full flex items-center justify-center text-3xl mx-auto mb-3">
+        🔐
+      </div>
+      <h2 class="font-fun text-2xl font-bold text-slate-800 mb-1">Akses Dashboard Guru</h2>
+      <p class="text-xs text-slate-500 mb-6">Masukkan PIN Keamanan Guru (Default PIN: <span class="font-bold text-sky-600">1234</span>)</p>
+
+      <form onsubmit="verifyTeacherPin(event)" class="max-w-xs mx-auto space-y-4">
+        <input type="password" id="inputTeacherPin" maxlength="6" required placeholder="Masukkan PIN" class="w-full text-center tracking-widest text-xl font-bold px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-400">
+        <p id="pinErrorMsg" class="hidden text-xs text-red-500 font-semibold">PIN salah! Coba lagi.</p>
+        <button type="submit" class="card-bounce w-full bg-sky-500 hover:bg-sky-600 text-white font-fun font-bold py-3 rounded-xl shadow-md">
+          Masuk Dashboard
+        </button>
+      </form>
+    </section>
+
+    <!-- 4. QUIZ QUESTION SCREEN -->
+    <section id="secQuiz" class="hidden bg-white rounded-3xl p-5 sm:p-7 shadow-xl border border-sky-100">
+      <!-- Progress & Score Header -->
+      <div class="flex justify-between items-center mb-4 pb-3 border-b border-slate-100">
+        <div>
+          <span id="txtQuestionProgress" class="text-xs font-bold text-sky-600 uppercase tracking-wider">Soal 1 dari 5</span>
+          <div class="w-32 bg-slate-100 h-2 rounded-full mt-1 overflow-hidden">
+            <div id="barProgress" class="bg-sky-500 h-full w-1/5 transition-all duration-300"></div>
+          </div>
+        </div>
+        <div class="bg-amber-50 px-3 py-1.5 rounded-xl border border-amber-200 flex items-center gap-1">
+          <span class="text-amber-500 text-sm">⭐</span>
+          <span id="txtCurrentScore" class="font-fun font-bold text-amber-700 text-sm">Skor: 0</span>
+        </div>
+      </div>
+
+      <!-- Question Content -->
+      <div class="space-y-4">
+        <!-- SVG Visual Illustration Container -->
+        <div id="svgContainer" class="w-full h-36 sm:h-44 bg-sky-50 rounded-2xl flex items-center justify-center p-2 border border-sky-100">
+          <!-- Inline SVG dynamically injected -->
+        </div>
+
+        <!-- Question Text -->
+        <h3 id="txtQuestion" class="font-fun text-base sm:text-lg font-bold text-slate-800 leading-snug">
+          Loading soal...
+        </h3>
+
+        <!-- Options Container -->
+        <div id="optsContainer" class="grid grid-cols-1 gap-2.5">
+          <!-- Dynamic Buttons -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. STUDENT RESULT & REVIEW SCREEN -->
+    <section id="secResult" class="hidden bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-sky-100">
+      <div class="text-center mb-6">
+        <div class="text-5xl mb-2" id="txtResultEmoji">🎉</div>
+        <h2 class="font-fun text-2xl sm:text-3xl font-bold text-slate-800" id="txtResultTitle">Luar Biasa!</h2>
+        <p class="text-xs text-slate-500">Nilaimu telah berhasil tersimpan di sistem Guru.</p>
+
+        <!-- Score Badge -->
+        <div class="my-4 inline-block bg-gradient-to-r from-amber-400 to-orange-400 text-white p-4 rounded-2xl shadow-md">
+          <div class="text-xs font-semibold uppercase tracking-wider opacity-90">Nilai Akhir Kamu</div>
+          <div id="txtFinalScore" class="font-fun text-4xl sm:text-5xl font-bold my-0.5">100</div>
+          <div id="txtScoreDetail" class="text-xs font-medium">5 dari 5 Soal Benar</div>
+        </div>
+      </div>
+
+      <!-- Pembahasan & Feedback Section -->
+      <div class="mb-6">
+        <h4 class="font-fun text-base font-bold text-slate-800 mb-3 flex items-center gap-2">
+          <span>💡</span> <span>Pembahasan & Review Soal:</span>
+        </h4>
+        <div id="feedbackReviewList" class="space-y-3 max-h-64 overflow-y-auto custom-scrollbar pr-1">
+          <!-- Dynamic review items inserted here -->
+        </div>
+      </div>
+
+      <button onclick="showSection('secLanding')" class="card-bounce w-full bg-slate-800 hover:bg-slate-900 text-white font-fun font-bold py-3.5 rounded-xl shadow-md">
+        Kembali ke Halaman Utama
+      </button>
+    </section>
+
+    <!-- 6. TEACHER DASHBOARD SCREEN -->
+    <section id="secTeacherDashboard" class="hidden bg-white rounded-3xl p-5 sm:p-7 shadow-xl border border-sky-100">
+      <!-- Header Dashboard -->
+      <div class="flex flex-wrap justify-between items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+        <div>
+          <h2 class="font-fun text-xl font-bold text-slate-800">📊 Dashboard Rekap Nilai</h2>
+          <p class="text-xs text-slate-500">Data hasil kuis siswa tersimpan otomatis</p>
+        </div>
+        <button onclick="showSection('secLanding')" class="px-3 py-1.5 bg-slate-100 text-slate-700 hover:bg-slate-200 rounded-xl text-xs font-bold">
+          Keluar 🚪
+        </button>
+      </div>
+
+      <!-- Quick Stats Cards -->
+      <div class="grid grid-cols-2 gap-3 mb-4">
+        <div class="bg-emerald-50 p-3 rounded-2xl border border-emerald-100">
+          <div class="text-xs text-emerald-600 font-semibold">Total Siswa Mengerjakan</div>
+          <div id="statTotalStudents" class="font-fun text-2xl font-bold text-emerald-800">0</div>
+        </div>
+        <div class="bg-sky-50 p-3 rounded-2xl border border-sky-100">
+          <div class="text-xs text-sky-600 font-semibold">Rata-Rata Nilai Kelas</div>
+          <div id="statAverageScore" class="font-fun text-2xl font-bold text-sky-800">0</div>
+        </div>
+      </div>
+
+      <!-- Actions & Filter -->
+      <div class="flex flex-col sm:flex-row gap-2 justify-between items-center mb-3">
+        <input type="text" id="inputSearchStudent" onkeyup="filterTable()" placeholder="🔍 Cari nama siswa..." class="w-full sm:w-1/2 px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-400">
+        <div class="flex gap-2 w-full sm:w-auto justify-end">
+          <button onclick="exportToCSV()" class="px-3 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-xs font-bold flex items-center gap-1 shadow-sm">
+            📥 Export CSV
+          </button>
+          <button onclick="clearAllData()" class="px-3 py-2 bg-red-50 text-red-600 hover:bg-red-100 rounded-xl text-xs font-bold border border-red-200">
+            🗑️ Reset
+          </button>
+        </div>
+      </div>
+
+      <!-- Student Scores Table -->
+      <div class="overflow-x-auto max-h-64 overflow-y-auto custom-scrollbar border border-slate-100 rounded-2xl">
+        <table class="w-full text-left text-xs text-slate-700">
+          <thead class="bg-slate-50 font-bold text-slate-600 sticky top-0 border-b border-slate-100">
+            <tr>
+              <th class="p-2.5">No</th>
+              <th class="p-2.5">Nama</th>
+              <th class="p-2.5">Kelas</th>
+              <th class="p-2.5">Skor</th>
+              <th class="p-2.5">Waktu</th>
+            </tr>
+          </thead>
+          <tbody id="tblScoresBody">
+            <!-- Dynamic rows inserted here -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="w-full max-w-2xl mx-auto text-center mt-4 text-xs text-slate-400">
+    Media Pembelajaran Bahasa Indonesia Kelas 3 SD • Kurikulum Merdeka
+  </footer>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    // --- QUESTION DATASET WITH SVG ILLUSTRATIONS ---
+    const quizQuestions = [
+      {
+        id: 1,
+        question: "⚽ Pada bagian AWAL cerita 'Kawan Seiring', apa yang sedang dilakukan Budi dan Lani?",
+        svg: `<svg viewBox="0 0 200 120" class="w-full h-full"><rect width="200" height="120" fill="#bae6fd" rx="12"/><path d="M0 80 Q100 65 200 80 L200 120 L0 120 Z" fill="#86efac"/><circle cx="50" cy="50" r="12" fill="#fde047"/><circle cx="50" cy="68" r="16" fill="#0284c7"/><circle cx="150" cy="50" r="12" fill="#fde047"/><circle cx="150" cy="68" r="16" fill="#e11d48"/><circle cx="100" cy="85" r="10" fill="#ffffff" stroke="#0f172a" stroke-width="2"/><path d="M96 82 L104 88 M104 82 L96 88" stroke="#0f172a" stroke-width="2"/></svg>`,
+        options: [
+          "Bermain sepak bola di lapangan sekolah ⚽",
+          "Membaca buku bersama di perpustakaan 📚",
+          "Tidur siang di dalam kelas 😴"
+        ],
+        correctIndex: 0,
+        explanation: "Sesuai bagian awal cerita, Budi dan Lani sedang bermain sepak bola bersama dengan gembira di lapangan."
+      },
+      {
+        id: 2,
+        question: "🚨 Pada bagian TENGAH cerita, masalah apa yang terjadi pada gambar di atas?",
+        svg: `<svg viewBox="0 0 200 120" class="w-full h-full"><rect width="200" height="120" fill="#fef08a" rx="12"/><path d="M0 85 Q100 70 200 85 L200 120 L0 120 Z" fill="#4ade80"/><circle cx="90" cy="70" r="12" fill="#fca5a5"/><path d="M80 85 Q90 100 110 95" stroke="#0284c7" stroke-width="10" stroke-linecap="round"/><text x="125" y="60" font-size="20">💥</text></svg>`,
+        options: [
+          "Budi tersandung dan jatuh di lapangan 🦶",
+          "Lani kehilangan sepatu bolanya 👟",
+          "Hujan deras turun di sekolah 🌧️"
+        ],
+        correctIndex: 0,
+        explanation: "Masalah utama (konflik) di bagian tengah cerita adalah saat Budi tersandung dan terjatuh ketika mengejar bola."
+      },
+      {
+        id: 3,
+        question: "🤝 Lengkapi kalimat rumpang berikut sesuai gambar: 'Melihat Budi jatuh, Lani segera ______ Budi untuk berdiri.'",
+        svg: `<svg viewBox="0 0 200 120" class="w-full h-full"><rect width="200" height="120" fill="#bbf7d0" rx="12"/><circle cx="70" cy="50" r="12" fill="#fde047"/><circle cx="130" cy="50" r="12" fill="#fde047"/><path d="M60 65 L85 75 M140 65 L115 75" stroke="#059669" stroke-width="6" stroke-linecap="round"/><text x="92" y="45" font-size="22">💚</text></svg>`,
+        options: [
+          "membantu 💚",
+          "menertawakan 😆",
+          "meninggalkan 🏃"
+        ],
+        correctIndex: 0,
+        explanation: "Sikap kawan seiring yang baik adalah membantu kawan yang sedang mengalami kesusahan."
+      },
+      {
+        id: 4,
+        question: "👑 Penulisan huruf pada AWAL kalimat dan NAMA ORANG harus menggunakan...",
+        svg: `<svg viewBox="0 0 200 120" class="w-full h-full"><rect width="200" height="120" fill="#e0e7ff" rx="12"/><text x="30" y="50" font-size="22" font-weight="bold" fill="#dc2626">budi dan lani ❌</text><text x="30" y="90" font-size="22" font-weight="bold" fill="#16a34a">Budi dan Lani ✅</text><text x="155" y="90" font-size="20">👑</text></svg>`,
+        options: [
+          "Huruf KAPITAL (Besar) 👑",
+          "Huruf kecil 🐜",
+          "Tanda Tanya ❓"
+        ],
+        correctIndex: 0,
+        explanation: "Aturan PUEBI menyatakan bahwa huruf pertama pada nama orang dan awal kalimat wajib ditulis dengan Huruf Kapital."
+      },
+      {
+        id: 5,
+        question: "🛑 Tanda baca yang wajib diletakkan pada AKHIR kalimat berita/cerita adalah...",
+        svg: `<svg viewBox="0 0 200 120" class="w-full h-full"><rect width="200" height="120" fill="#fce7f3" rx="12"/><text x="20" y="65" font-size="14" font-weight="bold" fill="#831843">"Mereka bermain bersama."</text><circle cx="168" cy="61" r="7" fill="#dc2626"/></svg>`,
+        options: [
+          "Tanda Titik ( . ) 🛑",
+          "Tanda Tanya ( ? ) ❓",
+          "Tanda Seru ( ! ) ❗"
+        ],
+        correctIndex: 0,
+        explanation: "Tanda titik (.) berfungsi untuk mengakhiri kalimat berita atau pernyataan."
+      }
+    ];
+
+    // --- STATE VARIABLES ---
+    let currentStudent = { name: "", class: "" };
+    let currentQuestionIdx = 0;
+    let score = 0;
+    let studentAnswers = [];
+    let isAudioOn = true;
+
+    // WEB AUDIO API SYNTHESIZER FOR SOUND EFFECTS
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function playTone(freq, type, duration) {
+      if (!isAudioOn) return;
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {}
+    }
+
+    function playSound(type) {
+      if (type === 'correct') {
+        playTone(523.25, 'sine', 0.15); // C5
+        setTimeout(() => playTone(659.25, 'sine', 0.25), 150); // E5
+      } else if (type === 'wrong') {
+        playTone(220, 'triangle', 0.3); // A3
+      } else if (type === 'fanfare') {
+        confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+      }
+    }
+
+    function toggleAudio() {
+      isAudioOn = !isAudioOn;
+      document.getElementById('soundIcon').innerText = isAudioOn ? "🔊" : "🔇";
+      document.getElementById('soundText').innerText = isAudioOn ? "Musik On" : "Mute";
+    }
+
+    // --- NAVIGATION HELPERS ---
+    function showSection(sectionId) {
+      const sections = ['secLanding', 'secStudentLogin', 'secTeacherLogin', 'secQuiz', 'secResult', 'secTeacherDashboard'];
+      sections.forEach(id => {
+        document.getElementById(id).classList.add('hidden');
+      });
+      document.getElementById(sectionId).classList.remove('hidden');
+    }
+
+    function goToStudentLogin() {
+      showSection('secStudentLogin');
+    }
+
+    function goToTeacherLogin() {
+      document.getElementById('inputTeacherPin').value = '';
+      document.getElementById('pinErrorMsg').classList.add('hidden');
+      showSection('secTeacherLogin');
+    }
+
+    function verifyTeacherPin(e) {
+      e.preventDefault();
+      const pin = document.getElementById('inputTeacherPin').value;
+      if (pin === "1234") {
+        renderTeacherDashboard();
+        showSection('secTeacherDashboard');
+      } else {
+        document.getElementById('pinErrorMsg').classList.remove('hidden');
+      }
+    }
+
+    // --- QUIZ LOGIC ---
+    function startQuiz(e) {
+      e.preventDefault();
+      currentStudent.name = document.getElementById('inputStudentName').value.trim();
+      currentStudent.class = document.getElementById('selectStudentClass').value;
+      
+      currentQuestionIdx = 0;
+      score = 0;
+      studentAnswers = [];
+
+      showSection('secQuiz');
+      loadQuestion();
+    }
+
+    function loadQuestion() {
+      const q = quizQuestions[currentQuestionIdx];
+      document.getElementById('txtQuestionProgress').innerText = `Soal ${currentQuestionIdx + 1} dari ${quizQuestions.length}`;
+      document.getElementById('barProgress').style.width = `${((currentQuestionIdx + 1) / quizQuestions.length) * 100}%`;
+      document.getElementById('txtCurrentScore').innerText = `Skor: ${score}`;
+
+      document.getElementById('svgContainer').innerHTML = q.svg;
+      document.getElementById('txtQuestion').innerText = q.question;
+
+      const optsBox = document.getElementById('optsContainer');
+      optsBox.innerHTML = '';
+
+      q.options.forEach((optText, idx) => {
+        const btn = document.createElement('button');
+        btn.className = "card-bounce w-full text-left p-3.5 rounded-xl border-2 border-slate-100 hover:border-sky-300 bg-white font-medium text-xs sm:text-sm text-slate-700 shadow-sm transition flex items-center justify-between";
+        btn.innerHTML = `<span>${optText}</span> <span class="text-slate-300 text-xs">➔</span>`;
+        btn.onclick = () => selectAnswer(idx);
+        optsBox.appendChild(btn);
+      });
+    }
+
+    function selectAnswer(chosenIdx) {
+      const q = quizQuestions[currentQuestionIdx];
+      const isCorrect = (chosenIdx === q.correctIndex);
+
+      if (isCorrect) {
+        score += 20;
+        playSound('correct');
+      } else {
+        playSound('wrong');
+      }
+
+      studentAnswers.push({
+        questionId: q.id,
+        questionText: q.question,
+        chosen: q.options[chosenIdx],
+        correct: q.options[q.correctIndex],
+        isCorrect: isCorrect,
+        explanation: q.explanation
+      });
+
+      currentQuestionIdx++;
+
+      if (currentQuestionIdx < quizQuestions.length) {
+        loadQuestion();
+      } else {
+        finishQuiz();
+      }
+    }
+
+    function finishQuiz() {
+      // Save result to LocalStorage (acts as shared store)
+      saveScoreToStorage();
+
+      // Setup Result Screen
+      document.getElementById('txtFinalScore').innerText = score;
+      document.getElementById('txtScoreDetail').innerText = `${score / 20} dari ${quizQuestions.length} Soal Benar`;
+
+      if (score >= 80) {
+        document.getElementById('txtResultEmoji').innerText = "🏆";
+        document.getElementById('txtResultTitle').innerText = "Hebat Sekali!";
+        playSound('fanfare');
+      } else {
+        document.getElementById('txtResultEmoji').innerText = "👏";
+        document.getElementById('txtResultTitle').innerText = "Tetap Semangat!";
+      }
+
+      // Render Review List
+      const reviewBox = document.getElementById('feedbackReviewList');
+      reviewBox.innerHTML = '';
+
+      studentAnswers.forEach((ans, i) => {
+        const item = document.createElement('div');
+        item.className = `p-3 rounded-xl border text-xs ${ans.isCorrect ? 'bg-emerald-50 border-emerald-200' : 'bg-red-50 border-red-200'}`;
+        item.innerHTML = `
+          <div class="font-bold text-slate-800 mb-1">Soal ${i + 1}: ${ans.isCorrect ? '🟢 Benar' : '🔴 Salah'}</div>
+          <div class="text-slate-600 mb-1"><strong>Jawabanmu:</strong> ${ans.chosen}</div>
+          ${!ans.isCorrect ? `<div class="text-emerald-700 font-semibold mb-1"><strong>Jawaban Benar:</strong> ${ans.correct}</div>` : ''}
+          <div class="text-slate-500 italic mt-1 bg-white/60 p-2 rounded-lg">💡 ${ans.explanation}</div>
+        `;
+        reviewBox.appendChild(item);
+      });
+
+      showSection('secResult');
+    }
+
+    // --- LOCALSTORAGE DATA MANAGEMENT (FOR TEACHER DASHBOARD) ---
+    function saveScoreToStorage() {
+      const records = JSON.parse(localStorage.getItem('quiz_records') || '[]');
+      const newRecord = {
+        name: currentStudent.name,
+        class: currentStudent.class,
+        score: score,
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      };
+      records.push(newRecord);
+      localStorage.setItem('quiz_records', JSON.stringify(records));
+    }
+
+    function renderTeacherDashboard() {
+      const records = JSON.parse(localStorage.getItem('quiz_records') || '[]');
+      const tbody = document.getElementById('tblScoresBody');
+      tbody.innerHTML = '';
+
+      let totalScore = 0;
+
+      records.forEach((rec, idx) => {
+        totalScore += rec.score;
+        const tr = document.createElement('tr');
+        tr.className = "border-b border-slate-100 hover:bg-slate-50";
+        tr.innerHTML = `
+          <td class="p-2.5 font-medium text-slate-400">${idx + 1}</td>
+          <td class="p-2.5 font-bold text-slate-800">${rec.name}</td>
+          <td class="p-2.5"><span class="px-2 py-0.5 bg-sky-100 text-sky-700 rounded-md font-semibold">${rec.class}</span></td>
+          <td class="p-2.5 font-bold ${rec.score >= 80 ? 'text-emerald-600' : 'text-amber-600'}">${rec.score}</td>
+          <td class="p-2.5 text-slate-400">${rec.time}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      document.getElementById('statTotalStudents').innerText = records.length;
+      document.getElementById('statAverageScore').innerText = records.length ? Math.round(totalScore / records.length) : 0;
+    }
+
+    function filterTable() {
+      const query = document.getElementById('inputSearchStudent').value.toLowerCase();
+      const rows = document.querySelectorAll('#tblScoresBody tr');
+      rows.forEach(row => {
+        const text = row.innerText.toLowerCase();
+        row.style.display = text.includes(query) ? '' : 'none';
+      });
+    }
+
+    function clearAllData() {
+      if (confirm("Apakah kamu yakin ingin menghapus semua rekap nilai siswa?")) {
+        localStorage.removeItem('quiz_records');
+        renderTeacherDashboard();
+      }
+    }
+
+    function exportToCSV() {
+      const records = JSON.parse(localStorage.getItem('quiz_records') || '[]');
+      if (records.length === 0) {
+        alert("Belum ada data nilai untuk di-export!");
+        return;
+      }
+
+      let csv = "No,Nama Siswa,Kelas,Skor,Waktu\n";
+      records.forEach((r, i) => {
+        csv += `${i + 1},"${r.name}",${r.class},${r.score},"${r.time}"\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Rekap_Nilai_Bahasa_Indonesia_${new Date().toISOString().slice(0,10)}.csv`;
+      a.click();
+    }
+  </script>
+</body>
+</html>
