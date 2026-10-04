@@ -1,709 +1,652 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Petualangan Bahasa Kelas 3 🌟 - Asesmen Formatif Bab 2</title>
-
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
-  <!-- Google Fonts: Plus Jakarta Sans & OpenDyslexic / Lexend for Inclusive Reading -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Lexend:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-
-  <style>
-    /* Calming Pastel & Soft Colors Theme for ADHD/Autism/Dyslexia Friendly Focus */
-    :root {
-      --bg-gradient: linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 50%, #fef3c7 100%);
-      --font-main: 'Plus Jakarta Sans', sans-serif;
-      --font-heading: 'Fredoka', cursive;
-    }
-
-    body {
-      font-family: var(--font-main);
-      background: var(--bg-gradient);
-      min-height: 100vh;
-      color: #334155;
-      overflow-x: hidden;
-    }
-
-    .font-fun {
-      font-family: var(--font-heading);
-    }
-
-    /* Dyslexia / Accessible Font Class Switcher */
-    .dyslexia-mode {
-      font-family: 'Lexend', sans-serif !important;
-      letter-spacing: 0.05em !important;
-      word-spacing: 0.1em !important;
-      line-height: 1.8 !important;
-    }
-
-    /* Soft Floating CSS Animations */
-    @keyframes floatGentle {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-8px) rotate(1deg); }
-    }
-
-    @keyframes cloudMove {
-      0% { transform: translateX(-10%); }
-      50% { transform: translateX(10%); }
-      100% { transform: translateX(-10%); }
-    }
-
-    @keyframes pulseSoft {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.03); }
-    }
-
-    .animate-float {
-      animation: floatGentle 4s ease-in-out infinite;
-    }
-
-    .animate-cloud {
-      animation: cloudMove 18s ease-in-out infinite;
-    }
-
-    .animate-pulse-soft {
-      animation: pulseSoft 3s ease-in-out infinite;
-    }
-
-    /* Tactile Interactive Buttons for Children */
-    .btn-bounce {
-      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    .btn-bounce:hover {
-      transform: translateY(-3px) scale(1.01);
-      box-shadow: 0 10px 20px -5px rgba(14, 165, 233, 0.2);
-    }
-
-    .btn-bounce:active {
-      transform: translateY(1px) scale(0.98);
-    }
-
-    /* Accessible Scrollbars */
-    .custom-scrollbar::-webkit-scrollbar {
-      width: 8px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-track {
-      background: #f1f5f9;
-      border-radius: 12px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-thumb {
-      background: #cbd5e1;
-      border-radius: 12px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-      background: #94a3b8;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petualangan Bahasa Kelas 3 - Asesmen Formatif Bab 2: Kawan Seiring</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Inter & Fredoka for fun, friendly typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        fredoka: ['Fredoka', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif']
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#075985'
+                        },
+                        pastel: {
+                            green: '#e6f4ea',
+                            yellow: '#fef7e0',
+                            purple: '#f3e8ff',
+                            pink: '#fce7f3'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Fredoka', 'Inter', sans-serif;
+            background-color: #f4f8fa;
+            color: #2d3748;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .btn-bounce {
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+        .btn-bounce:active {
+            transform: scale(0.97);
+        }
+        .text-large-mode {
+            font-size: 1.25rem !important;
+        }
+        .text-large-mode .option-text {
+            font-size: 1.2rem !important;
+        }
+        .text-large-mode .q-title {
+            font-size: 1.5rem !important;
+        }
+        /* Custom scrollbar for clean visual */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+    </style>
 </head>
-<body class="flex flex-col min-h-screen text-slate-700 antialiased p-3 sm:p-6 relative select-none" id="appBody">
+<body class="min-h-screen flex flex-col items-center justify-between p-3 sm:p-6 select-none">
 
-  <!-- Background Decorative Clouds (Low contrast, soothing) -->
-  <div class="fixed top-6 left-10 opacity-40 pointer-events-none animate-cloud z-0">
-    <svg width="120" height="60" viewBox="0 0 120 60" fill="#cbd5e1">
-      <path d="M20 45 C10 45 0 35 0 25 C0 15 12 8 22 12 C28 4 40 0 52 5 C62 0 78 4 82 14 C92 10 105 18 105 28 C115 30 120 40 110 50 Z" />
-    </svg>
-  </div>
-  <div class="fixed bottom-10 right-8 opacity-30 pointer-events-none animate-cloud z-0" style="animation-delay: -5s;">
-    <svg width="140" height="70" viewBox="0 0 120 60" fill="#93c5fd">
-      <path d="M20 45 C10 45 0 35 0 25 C0 15 12 8 22 12 C28 4 40 0 52 5 C62 0 78 4 82 14 C92 10 105 18 105 28 C115 30 120 40 110 50 Z" />
-    </svg>
-  </div>
+    <!-- Top Bar & Mascot Header -->
+    <header class="w-full max-w-3xl bg-white rounded-3xl shadow-sm border border-sky-100 p-4 sm:p-6 mb-4 transition-all">
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+            
+            <!-- Logo & Title Header -->
+            <div class="flex items-center gap-3">
+                <!-- SVG Illustration: Guru dan Siswa -->
+                <div class="w-16 h-16 sm:w-20 sm:h-20 bg-sky-100 rounded-2xl flex items-center justify-center shrink-0 border-2 border-sky-200 overflow-hidden relative">
+                    <svg class="w-14 h-14 text-sky-600" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Guru -->
+                        <circle cx="35" cy="35" r="14" fill="#38bdf8"/>
+                        <path d="M15 75C15 58 24 50 35 50C46 50 55 58 55 75" fill="#0284c7"/>
+                        <!-- Glasses for teacher -->
+                        <circle cx="30" cy="34" r="4" stroke="#ffffff" stroke-width="2"/>
+                        <circle cx="40" cy="34" r="4" stroke="#ffffff" stroke-width="2"/>
+                        <line x1="34" y1="34" x2="36" y2="34" stroke="#ffffff" stroke-width="2"/>
+                        
+                        <!-- Siswa -->
+                        <circle cx="68" cy="42" r="11" fill="#f43f5e"/>
+                        <path d="M52 80C52 66 59 60 68 60C77 60 84 66 84 80" fill="#e11d48"/>
+                        <circle cx="68" cy="38" r="8" fill="#fecdd3"/>
+                    </svg>
+                </div>
+                <div>
+                    <span class="inline-block px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-xs font-bold tracking-wide uppercase mb-1">
+                        Bahasa Indonesia Kelas 3 SD
+                    </span>
+                    <h1 class="text-xl sm:text-2xl font-bold text-slate-800 leading-snug">
+                        Asesmen Formatif Bab 2
+                    </h1>
+                    <p class="text-xs sm:text-sm text-slate-500 font-medium">
+                        Tema: <span class="text-sky-600 font-semibold">"Kawan Seiring"</span>
+                    </p>
+                </div>
+            </div>
 
-  <header class="w-full max-w-3xl mx-auto flex flex-wrap justify-between items-center bg-white/90 backdrop-blur-md p-3.5 sm:p-4 rounded-2xl shadow-sm border border-sky-100 mb-4 z-10 gap-2">
-    <div class="flex items-center gap-3">
-      <div class="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center text-2xl shadow-inner animate-float">
-        🌟
-      </div>
-      <div>
-        <h1 class="font-fun text-lg sm:text-xl font-bold text-slate-800 leading-tight">Petualangan Bahasa</h1>
-        <p class="text-xs font-semibold text-emerald-600">Asesmen Formatif • Bab 2 Kelas 3 SD</p>
-      </div>
-    </div>
+            <!-- Accessibility Controls (ABK Friendly) -->
+            <div class="flex items-center gap-2 bg-slate-50 p-2 rounded-2xl border border-slate-200">
+                <!-- Text Size Toggle -->
+                <button id="btnTextSize" title="Ubah Ukuran Teks" onclick="toggleTextSize()" class="p-2 sm:px-3 sm:py-2 bg-white hover:bg-sky-50 text-slate-700 rounded-xl border border-slate-200 text-xs font-bold flex items-center gap-1 btn-bounce shadow-sm">
+                    <span class="text-base">Aa</span>
+                    <span class="hidden sm:inline">Teks</span>
+                </button>
 
-    <!-- Inclusive Accessibility & Sound Controls -->
-    <div class="flex items-center gap-2">
-      <!-- Dyslexia Font Toggle Button -->
-      <button id="btnDyslexiaToggle" onclick="toggleDyslexiaMode()" title="Mode Teks Mudah Dibaca (Ramah Disleksia)" class="px-3 py-1.5 bg-sky-50 text-sky-800 hover:bg-sky-100 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition border border-sky-200">
-        <span>👁️</span> <span id="txtDyslexia">Mode Teks Jelas</span>
-      </button>
+                <!-- Audio Sound FX Toggle -->
+                <button id="btnSound" title="Matikan/Hidupkan Suara" onclick="toggleSound()" class="p-2 sm:px-3 sm:py-2 bg-white hover:bg-sky-50 text-slate-700 rounded-xl border border-slate-200 text-xs font-bold flex items-center gap-1 btn-bounce shadow-sm">
+                    <span id="soundIcon">🔊</span>
+                    <span id="soundText" class="hidden sm:inline">Suara</span>
+                </button>
 
-      <!-- Sound FX Toggle -->
-      <button id="btnSoundToggle" onclick="toggleAudio()" title="Suara Efek On/Off" class="px-3 py-1.5 bg-amber-50 text-amber-800 hover:bg-amber-100 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition border border-amber-200">
-        <span id="soundIcon">🔊</span> <span id="soundText">Suara Aktif</span>
-      </button>
-    </div>
-  </header>
+                <!-- Text to Speech Button -->
+                <button id="btnReadAloud" title="Bacakan Soal Ini" onclick="readCurrentQuestion()" class="p-2 sm:px-3 sm:py-2 bg-sky-500 hover:bg-sky-600 text-white rounded-xl text-xs font-bold flex items-center gap-1 btn-bounce shadow-sm">
+                    <span>🗣️</span>
+                    <span class="hidden sm:inline">Baca Soal</span>
+                </button>
+            </div>
 
-  <main class="w-full max-w-3xl mx-auto flex-1 flex flex-col justify-center z-10">
-
-    <!-- 1. LANDING PAGE / ROLE SELECTION -->
-    <section id="secLanding" class="bg-white/95 rounded-3xl p-6 sm:p-10 shadow-xl border border-sky-100 text-center flex flex-col items-center relative overflow-hidden">
-      <!-- Decorative Mascot -->
-      <div class="w-24 h-24 bg-gradient-to-tr from-sky-100 to-emerald-100 rounded-full flex items-center justify-center text-5xl mb-4 shadow-inner animate-float">
-        🐱
-      </div>
-
-      <span class="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-xs font-bold tracking-wide mb-2 uppercase">
-        Modul Pembelajaran
-      </span>
-      <h2 class="font-fun text-2xl sm:text-4xl font-bold text-slate-800 mb-3 leading-snug">
-        Selamat Datang di Petualangan Kata! 📖
-      </h2>
-      <p class="text-slate-600 text-sm sm:text-base max-w-md mb-8 leading-relaxed">
-        Mari kita ukur pemahamanmu pada Bab 2 secara menyenangkan, ramah, dan santai!
-      </p>
-
-      <!-- Role Selection Cards -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-md">
-        <!-- Student Role Card -->
-        <button onclick="goToStudentLogin()" class="btn-bounce bg-emerald-500 hover:bg-emerald-600 text-white p-6 rounded-2xl font-fun text-lg font-bold shadow-lg shadow-emerald-100 flex flex-col items-center gap-3 border border-emerald-400">
-          <span class="text-5xl">👦👧</span>
-          <div>
-            <div class="text-xl">Masuk Siswa</div>
-            <div class="text-xs font-sans font-normal opacity-90 mt-0.5">Mulai Asesmen Formatif</div>
-          </div>
-        </button>
-
-        <!-- Teacher Role Card -->
-        <button onclick="goToTeacherLogin()" class="btn-bounce bg-sky-500 hover:bg-sky-600 text-white p-6 rounded-2xl font-fun text-lg font-bold shadow-lg shadow-sky-100 flex flex-col items-center gap-3 border border-sky-400">
-          <span class="text-5xl">👩‍🏫</span>
-          <div>
-            <div class="text-xl">Dashboard Guru</div>
-            <div class="text-xs font-sans font-normal opacity-90 mt-0.5">Lihat Rekapitulasi Nilai</div>
-          </div>
-        </button>
-      </div>
-    </section>
-
-    <!-- 2. STUDENT LOGIN FORM -->
-    <section id="secStudentLogin" class="hidden bg-white/95 rounded-3xl p-6 sm:p-8 shadow-xl border border-emerald-100">
-      <button onclick="showSection('secLanding')" class="text-xs font-bold text-slate-500 hover:text-slate-800 mb-4 flex items-center gap-1.5 transition">
-        ← Kembali ke Halaman Utama
-      </button>
-
-      <div class="text-center mb-6">
-        <span class="text-4xl">📝</span>
-        <h2 class="font-fun text-2xl font-bold text-slate-800 mt-2">Data Diri Teman Cilik</h2>
-        <p class="text-xs sm:text-sm text-slate-500">Tuliskan nama dan kelasmu sebelum memulai ya!</p>
-      </div>
-
-      <form onsubmit="startQuiz(event)" class="space-y-4 max-w-md mx-auto">
-        <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1.5">Nama Lengkap Kamu:</label>
-          <input type="text" id="inputStudentName" required placeholder="Contoh: Budi Santoso" class="w-full px-4 py-3.5 rounded-2xl border-2 border-slate-200 focus:border-emerald-400 focus:outline-none text-sm font-medium transition bg-slate-50 focus:bg-white">
         </div>
+    </header>
 
-        <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1.5">Pilih Kelas:</label>
-          <select id="selectStudentClass" required class="w-full px-4 py-3.5 rounded-2xl border-2 border-slate-200 focus:border-emerald-400 focus:outline-none text-sm font-medium transition bg-slate-50 focus:bg-white">
-            <option value="">-- Pilih Kelasmu --</option>
-            <option value="Kelas 3A">Kelas 3A</option>
-            <option value="Kelas 3B">Kelas 3B</option>
-            <option value="Kelas 3C">Kelas 3C</option>
-          </select>
-        </div>
-
-        <button type="submit" class="btn-bounce w-full bg-emerald-500 hover:bg-emerald-600 text-white font-fun font-bold py-4 rounded-2xl shadow-md text-lg mt-2 flex items-center justify-center gap-2">
-          <span>Siap Mulai Kuis!</span> 🚀
-        </button>
-      </form>
-    </section>
-
-    <!-- 3. TEACHER LOGIN FORM (PIN PROTECTED) -->
-    <section id="secTeacherLogin" class="hidden bg-white/95 rounded-3xl p-6 sm:p-8 shadow-xl border border-sky-100 text-center">
-      <button onclick="showSection('secLanding')" class="text-xs font-bold text-slate-500 hover:text-slate-800 mb-4 flex items-center gap-1.5 transition">
-        ← Kembali
-      </button>
-
-      <div class="w-16 h-16 bg-sky-100 text-sky-600 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-3">
-        🔐
-      </div>
-      <h2 class="font-fun text-2xl font-bold text-slate-800 mb-1">Ruang Dashboard Guru</h2>
-      <p class="text-xs text-slate-500 mb-6">Masukkan PIN Guru untuk melihat rekap nilai (PIN Default: <span class="font-bold text-sky-600">1234</span>)</p>
-
-      <form onsubmit="verifyTeacherPin(event)" class="max-w-xs mx-auto space-y-4">
-        <input type="password" id="inputTeacherPin" maxlength="6" required placeholder="Masukkan PIN" class="w-full text-center tracking-widest text-2xl font-bold px-4 py-3.5 rounded-2xl border-2 border-slate-200 focus:border-sky-400 focus:outline-none bg-slate-50">
-        <p id="pinErrorMsg" class="hidden text-xs text-red-500 font-bold">⚠️ PIN salah! Silakan coba lagi.</p>
-        <button type="submit" class="btn-bounce w-full bg-sky-500 hover:bg-sky-600 text-white font-fun font-bold py-3.5 rounded-2xl shadow-md">
-          Buka Dashboard 📊
-        </button>
-      </form>
-    </section>
-
-    <!-- 4. QUIZ QUESTION SCREEN -->
-    <section id="secQuiz" class="hidden bg-white/95 rounded-3xl p-5 sm:p-8 shadow-xl border border-sky-100">
-      <!-- Header Info & Progress Bar -->
-      <div class="flex justify-between items-center mb-4 pb-3 border-b border-slate-100">
-        <div>
-          <span id="txtQuestionProgress" class="text-xs font-bold text-sky-600 uppercase tracking-wider">Soal 1 dari 5</span>
-          <div class="w-36 bg-slate-100 h-2.5 rounded-full mt-1.5 overflow-hidden p-0.5">
-            <div id="barProgress" class="bg-gradient-to-r from-sky-400 to-emerald-400 h-full w-1/5 rounded-full transition-all duration-300"></div>
-          </div>
-        </div>
-
-        <div class="bg-amber-50 px-3.5 py-1.5 rounded-2xl border border-amber-200 flex items-center gap-1.5 shadow-sm">
-          <span class="text-amber-500 text-base">⭐</span>
-          <span id="txtCurrentScore" class="font-fun font-bold text-amber-800 text-sm sm:text-base">Skor: 0</span>
-        </div>
-      </div>
-
-      <!-- Question & Visual SVG Container -->
-      <div class="space-y-4">
-        <!-- SVG Visual Container -->
-        <div id="svgContainer" class="w-full h-36 sm:h-44 bg-slate-50 rounded-2xl flex items-center justify-center p-2 border border-slate-100 shadow-inner overflow-hidden">
-          <!-- Injected via JavaScript -->
-        </div>
-
-        <!-- Question Text -->
-        <h3 id="txtQuestion" class="font-fun text-base sm:text-xl font-bold text-slate-800 leading-snug">
-          Memuat pertanyaan...
-        </h3>
-
-        <!-- Options Container -->
-        <div id="optsContainer" class="grid grid-cols-1 gap-3 pt-1">
-          <!-- Dynamic Answer Buttons -->
-        </div>
-      </div>
-    </section>
-
-    <!-- 5. STUDENT RESULT & REVIEW SCREEN -->
-    <section id="secResult" class="hidden bg-white/95 rounded-3xl p-6 sm:p-8 shadow-xl border border-sky-100">
-      <div class="text-center mb-6">
-        <div class="text-6xl mb-2 animate-bounce" id="txtResultEmoji">🎉</div>
-        <h2 class="font-fun text-2xl sm:text-3xl font-bold text-slate-800" id="txtResultTitle">Luar Biasa!</h2>
-        <p class="text-xs sm:text-sm text-slate-500 mt-1">Kamu sudah menyelesaikan Asesmen Formatif Bab 2 dengan baik!</p>
-
-        <!-- Final Score Card -->
-        <div class="my-5 inline-block bg-gradient-to-r from-emerald-400 to-teal-500 text-white p-5 rounded-3xl shadow-lg border border-emerald-300 transform transition hover:scale-105">
-          <div class="text-xs font-bold uppercase tracking-wider opacity-90">Nilai Formatif Kamu</div>
-          <div id="txtFinalScore" class="font-fun text-5xl sm:text-6xl font-bold my-1">100</div>
-          <div id="txtScoreDetail" class="text-xs font-semibold bg-white/20 px-3 py-1 rounded-full inline-block mt-1">5 dari 5 Soal Benar</div>
-        </div>
-      </div>
-
-      <!-- Pembahasan & Review List -->
-      <div class="mb-6">
-        <h4 class="font-fun text-base sm:text-lg font-bold text-slate-800 mb-3 flex items-center gap-2">
-          <span>💡</span> <span>Umpan Balik & Pembahasan Soal:</span>
-        </h4>
-        <div id="feedbackReviewList" class="space-y-3 max-h-64 overflow-y-auto custom-scrollbar pr-1.5">
-          <!-- Injected dynamically -->
-        </div>
-      </div>
-
-      <button onclick="showSection('secLanding')" class="btn-bounce w-full bg-slate-800 hover:bg-slate-900 text-white font-fun font-bold py-4 rounded-2xl shadow-md text-base">
-        Kembali ke Halaman Utama 🏠
-      </button>
-    </section>
-
-    <!-- 6. TEACHER DASHBOARD SCREEN -->
-    <section id="secTeacherDashboard" class="hidden bg-white/95 rounded-3xl p-5 sm:p-7 shadow-xl border border-sky-100">
-      <!-- Header Dashboard -->
-      <div class="flex flex-wrap justify-between items-center gap-2 mb-4 pb-3 border-b border-slate-100">
-        <div>
-          <h2 class="font-fun text-xl font-bold text-slate-800">📊 Rekapitulasi Asesmen Formatif</h2>
-          <p class="text-xs text-slate-500">Hasil Belajar Bahasa Indonesia Bab 2 Kelas 3 SD</p>
-        </div>
-        <button onclick="showSection('secLanding')" class="px-3.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition">
-          Keluar 🚪
-        </button>
-      </div>
-
-      <!-- Quick Statistics -->
-      <div class="grid grid-cols-2 gap-3 mb-4">
-        <div class="bg-emerald-50 p-3.5 rounded-2xl border border-emerald-100">
-          <div class="text-xs text-emerald-700 font-bold">Total Siswa Mengerjakan</div>
-          <div id="statTotalStudents" class="font-fun text-2xl sm:text-3xl font-bold text-emerald-800">0</div>
-        </div>
-        <div class="bg-sky-50 p-3.5 rounded-2xl border border-sky-100">
-          <div class="text-xs text-sky-700 font-bold">Rata-Rata Nilai Formatif</div>
-          <div id="statAverageScore" class="font-fun text-2xl sm:text-3xl font-bold text-sky-800">0</div>
-        </div>
-      </div>
-
-      <!-- Actions Bar -->
-      <div class="flex flex-col sm:flex-row gap-2 justify-between items-center mb-3">
-        <input type="text" id="inputSearchStudent" onkeyup="filterTable()" placeholder="🔍 Cari nama siswa..." class="w-full sm:w-1/2 px-3.5 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-400 bg-slate-50">
+    <!-- Main Quiz Card -->
+    <main id="quizContainer" class="w-full max-w-3xl bg-white rounded-3xl shadow-md border border-slate-100 p-5 sm:p-8 flex-1 flex flex-col justify-between transition-all relative">
         
-        <div class="flex gap-2 w-full sm:w-auto justify-end">
-          <button onclick="exportToCSV()" class="px-3.5 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-sm transition">
-            📥 Unduh Excel / CSV
-          </button>
-          <button onclick="clearAllData()" class="px-3 py-2 bg-red-50 text-red-600 hover:bg-red-100 rounded-xl text-xs font-bold border border-red-200 transition">
-            🗑️ Reset Data
-          </button>
+        <!-- Top Status Bar (Question Counter & Score) -->
+        <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-100">
+            <div class="flex items-center gap-2">
+                <span class="w-8 h-8 rounded-full bg-sky-100 text-sky-700 font-bold flex items-center justify-center text-sm" id="qNumBadge">1</span>
+                <div>
+                    <p class="text-xs text-slate-400 font-bold uppercase tracking-wider">Kemajuan</p>
+                    <p class="text-sm font-bold text-slate-700">Soal <span id="currentQText">1</span> dari <span id="totalQText">10</span></p>
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="w-1/3 sm:w-1/2 bg-slate-100 h-3 rounded-full overflow-hidden">
+                <div id="progressBar" class="bg-gradient-to-r from-sky-400 to-indigo-500 h-full w-0 transition-all duration-300"></div>
+            </div>
+
+            <!-- Score Badge -->
+            <div class="bg-amber-50 px-3 py-1.5 rounded-2xl border border-amber-200 flex items-center gap-1.5">
+                <span class="text-base">⭐</span>
+                <span class="text-sm font-bold text-amber-800" id="scoreText">0 Poin</span>
+            </div>
         </div>
-      </div>
 
-      <!-- Student Scores Table -->
-      <div class="overflow-x-auto max-h-64 overflow-y-auto custom-scrollbar border border-slate-100 rounded-2xl">
-        <table class="w-full text-left text-xs text-slate-700">
-          <thead class="bg-slate-50 font-bold text-slate-600 sticky top-0 border-b border-slate-100">
-            <tr>
-              <th class="p-3">No</th>
-              <th class="p-3">Nama Siswa</th>
-              <th class="p-3">Kelas</th>
-              <th class="p-3">Skor Formatif</th>
-              <th class="p-3">Waktu</th>
-            </tr>
-          </thead>
-          <tbody id="tblScoresBody">
-            <!-- Dynamic Rows -->
-          </tbody>
-        </table>
-      </div>
-    </section>
+        <!-- Question Content Area -->
+        <div class="flex-1 flex flex-col justify-center my-2">
+            
+            <!-- Category Tag -->
+            <div class="mb-2">
+                <span id="questionCategory" class="inline-block px-3 py-1 rounded-lg text-xs font-semibold bg-emerald-100 text-emerald-800">
+                    Struktur Cerita
+                </span>
+            </div>
 
-  </main>
+            <!-- Question Text -->
+            <h2 id="questionTitle" class="q-title text-lg sm:text-xl font-bold text-slate-800 leading-relaxed mb-6">
+                Memuat pertanyaan...
+            </h2>
 
-  <footer class="w-full max-w-3xl mx-auto text-center mt-6 text-xs text-slate-400 z-10">
-    Media Pembelajaran & Asesmen Formatif Digital • Bahasa Indonesia Kelas 3 SD Kurikulum Merdeka
-  </footer>
+            <!-- Visual Helper / Context Box (if available) -->
+            <div id="visualBox" class="mb-6 p-4 bg-sky-50 rounded-2xl border border-sky-100 hidden">
+                <p id="visualText" class="text-sm sm:text-base text-sky-900 italic font-medium"></p>
+            </div>
 
-  <script>
-    /* -------------------------------------------------------------------
-       1. DATASET ASSESSMENT BAB 2 (BAHASA INDONESIA KELAS 3 SD)
-       Covers: Feelings/Emotions, Transitive/Intransitive verbs,
-       Vocabulary, Huruf Kapital, and Tanda Baca.
-    ------------------------------------------------------------------- */
-    const quizQuestions = [
-      {
-        id: 1,
-        question: "😊 Perhatikan gambar! Ketika mendapat hadiah kejutan dari teman, perasaan yang kita rasakan adalah...",
-        svg: `<svg viewBox="0 0 200 120" class="w-full h-full"><rect width="200" height="120" fill="#fef3c7" rx="16"/><circle cx="100" cy="55" r="32" fill="#fbbf24"/><circle cx="88" cy="48" r="4" fill="#78350f"/><circle cx="112" cy="48" r="4" fill="#78350f"/><path d="M 85 62 Q 100 80 115 62" fill="none" stroke="#78350f" stroke-width="4" stroke-linecap="round"/><text x="145" y="45" font-size="22">🎁</text><text x="35" y="45" font-size="22">✨</text></svg>`,
-        options: [
-          "Senang dan gembira 😊",
-          "Sedih dan menangis 😢",
-          "Marah dan kesal 😡"
-        ],
-        correctIndex: 0,
-        explanation: "Mendapat hadiah kejutan membuat hati kita merasa bahagia, senang, dan gembira."
-      },
-      {
-        id: 2,
-        question: "⚽ Manakah di bawah ini yang merupakan contoh KALIMAT TRANSITIF (kalimat yang memerlukan Objek)?",
-        svg: `<svg viewBox="0 0 200 120" class="w-full h-full"><rect width="200" height="120" fill="#e0f2fe" rx="16"/><rect x="25" y="35" width="150" height="50" rx="12" fill="#ffffff" stroke="#38bdf8" stroke-width="2"/><text x="35" y="65" font-size="14" font-weight="bold" fill="#0284c7">Budi + menendang + bola ⚽</text></svg>`,
-        options: [
-          "Budi menendang bola. ⚽",
-          "Lani tertawa terbahak-bahak. 😆",
-          "Adik menangis tersedu-sedu. 😢"
-        ],
-        correctIndex: 0,
-        explanation: "Kalimat transitif memiliki objek setelah kata kerja. Pada kalimat 'Budi menendang bola', 'bola' berperan sebagai objek."
-      },
-      {
-        id: 3,
-        question: "🚶 Kalimat INTRANSITIF adalah kalimat yang TIDAK membutuhkan objek. Manakah contoh kalimat intransitif?",
-        svg: `<svg viewBox="0 0 200 120" class="w-full h-full"><rect width="200" height="120" fill="#f0fdf4" rx="16"/><circle cx="100" cy="50" r="20" fill="#4ade80"/><path d="M 90 75 Q 100 110 110 75" stroke="#15803d" stroke-width="6" stroke-linecap="round"/><text x="135" y="55" font-size="20">🏃</text></svg>`,
-        options: [
-          "Siti berlari cepat di lapangan. 🏃",
-          "Ibu memasak nasi goreng. 🍳",
-          "Ayah membaca koran pagi. 📰"
-        ],
-        correctIndex: 0,
-        explanation: "'Siti berlari cepat' tidak membutuhkan objek sasaran, sehingga tergolong kalimat intransitif."
-      },
-      {
-        id: 4,
-        question: "👑 Aturan PUEBI: Penulisan NAMA ORANG dan AWAL KALIMAT wajib menggunakan...",
-        svg: `<svg viewBox="0 0 200 120" class="w-full h-full"><rect width="200" height="120" fill="#f1f5f9" rx="16"/><text x="25" y="48" font-size="15" font-weight="bold" fill="#ef4444">budi pergi ke sekolah ❌</text><text x="25" y="85" font-size="15" font-weight="bold" fill="#16a34a">Budi pergi ke sekolah ✅</text><text x="165" y="85" font-size="18">👑</text></svg>`,
-        options: [
-          "Huruf KAPITAL (Besar) 👑",
-          "Huruf kecil semua 🐜",
-          "Tanda Seru ❗"
-        ],
-        correctIndex: 0,
-        explanation: "Huruf pertama pada awal kalimat dan nama orang harus ditulis dengan Huruf Kapital."
-      },
-      {
-        id: 5,
-        question: "🛑 Tanda baca yang tepat untuk mengakhiri kalimat pernyataan atau berita adalah...",
-        svg: `<svg viewBox="0 0 200 120" class="w-full h-full"><rect width="200" height="120" fill="#fce7f3" rx="16"/><text x="20" y="65" font-size="13" font-weight="bold" fill="#9d174d">"Kami belajar Bahasa Indonesia."</text><circle cx="178" cy="62" r="6" fill="#dc2626"/></svg>`,
-        options: [
-          "Tanda Titik ( . ) 🛑",
-          "Tanda Tanya ( ? ) ❓",
-          "Tanda Seru ( ! ) ❗"
-        ],
-        correctIndex: 0,
-        explanation: "Kalimat berita/pernyataan selalu diakhiri dengan Tanda Titik (.)."
-      }
-    ];
+            <!-- Options Grid -->
+            <div id="optionsContainer" class="grid grid-cols-1 gap-3 sm:gap-4">
+                <!-- Option buttons dynamically inserted -->
+            </div>
 
-    /* -------------------------------------------------------------------
-       2. APP STATE VARIABLES
-    ------------------------------------------------------------------- */
-    let currentStudent = { name: "", class: "" };
-    let currentQuestionIdx = 0;
-    let score = 0;
-    let studentAnswers = [];
-    let isAudioOn = true;
-    let isDyslexiaMode = false;
+            <!-- Explanation Feedback Box (Shown after answer) -->
+            <div id="feedbackBox" class="mt-6 p-4 rounded-2xl border hidden transition-all">
+                <div class="flex items-start gap-3">
+                    <span id="feedbackIcon" class="text-2xl">💡</span>
+                    <div>
+                        <h4 id="feedbackTitle" class="font-bold text-sm mb-1">Penjelasan:</h4>
+                        <p id="feedbackText" class="text-xs sm:text-sm text-slate-700 leading-relaxed"></p>
+                    </div>
+                </div>
+            </div>
 
-    /* -------------------------------------------------------------------
-       3. INCLUSIVE ACCESSIBILITY & AUDIO SYNTHESIZER
-    ------------------------------------------------------------------- */
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        </div>
 
-    function playTone(freq, type, duration) {
-      if (!isAudioOn) return;
-      try {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = type;
-        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + duration);
-      } catch (e) {}
-    }
+        <!-- Footer Navigation -->
+        <div class="mt-8 pt-4 border-t border-slate-100 flex items-center justify-between">
+            <button id="btnPrev" onclick="prevQuestion()" disabled class="px-4 py-2.5 bg-slate-100 text-slate-400 font-bold text-sm rounded-2xl disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-200 transition btn-bounce">
+                ⬅️ Sebelumnya
+            </button>
 
-    function playSound(type) {
-      if (type === 'correct') {
-        playTone(523.25, 'sine', 0.15); // C5
-        setTimeout(() => playTone(659.25, 'sine', 0.2), 120); // E5
-      } else if (type === 'wrong') {
-        playTone(220, 'triangle', 0.25); // A3
-      } else if (type === 'fanfare') {
-        confetti({ particleCount: 90, spread: 60, origin: { y: 0.6 } });
-      }
-    }
+            <button id="btnNext" onclick="nextQuestion()" disabled class="px-6 py-2.5 bg-sky-500 hover:bg-sky-600 text-white font-bold text-sm rounded-2xl shadow-md disabled:opacity-50 disabled:cursor-not-allowed transition btn-bounce flex items-center gap-2">
+                <span>Lanjut</span>
+                <span>➡️</span>
+            </button>
+        </div>
 
-    function toggleAudio() {
-      isAudioOn = !isAudioOn;
-      document.getElementById('soundIcon').innerText = isAudioOn ? "🔊" : "🔇";
-      document.getElementById('soundText').innerText = isAudioOn ? "Suara Aktif" : "Mute";
-    }
+    </main>
 
-    function toggleDyslexiaMode() {
-      isDyslexiaMode = !isDyslexiaMode;
-      const appBody = document.getElementById('appBody');
-      const txtDyslexia = document.getElementById('txtDyslexia');
+    <!-- Result Screen Overlay (Hidden by default) -->
+    <div id="resultModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 text-center shadow-2xl border border-white/20 transform transition-all">
+            
+            <div class="w-24 h-24 bg-amber-100 text-amber-500 rounded-full flex items-center justify-center text-5xl mx-auto mb-4 border-4 border-amber-200 shadow-inner">
+                🏆
+            </div>
 
-      if (isDyslexiaMode) {
-        appBody.classList.add('dyslexia-mode');
-        txtDyslexia.innerText = "Teks Standar";
-      } else {
-        appBody.classList.remove('dyslexia-mode');
-        txtDyslexia.innerText = "Mode Teks Jelas";
-      }
-    }
+            <h2 class="text-2xl font-bold text-slate-800 mb-1">Hebat Sekali! 🎉</h2>
+            <p class="text-slate-500 text-sm mb-6">Kamu telah menyelesaikan Asesmen Formatif Bab 2</p>
 
-    /* -------------------------------------------------------------------
-       4. SECTION NAVIGATION CONTROLLER
-    ------------------------------------------------------------------- */
-    function showSection(sectionId) {
-      const sections = ['secLanding', 'secStudentLogin', 'secTeacherLogin', 'secQuiz', 'secResult', 'secTeacherDashboard'];
-      sections.forEach(id => {
-        document.getElementById(id).classList.add('hidden');
-      });
-      document.getElementById(sectionId).classList.remove('hidden');
-    }
+            <!-- Score Display Box -->
+            <div class="bg-slate-50 rounded-2xl p-4 mb-6 border border-slate-200 grid grid-cols-2 gap-3">
+                <div class="bg-white p-3 rounded-xl border border-slate-100">
+                    <p class="text-xs text-slate-400 font-bold uppercase">Nilai Akhir</p>
+                    <p id="finalScoreText" class="text-3xl font-extrabold text-sky-600">0</p>
+                </div>
+                <div class="bg-white p-3 rounded-xl border border-slate-100">
+                    <p class="text-xs text-slate-400 font-bold uppercase">Jawaban Benar</p>
+                    <p id="finalCorrectText" class="text-3xl font-extrabold text-emerald-500">0 / 10</p>
+                </div>
+            </div>
 
-    function goToStudentLogin() {
-      showSection('secStudentLogin');
-    }
+            <!-- Encouragement Message -->
+            <p id="resultMessage" class="text-sm text-slate-700 font-medium mb-6 bg-sky-50 p-3 rounded-xl border border-sky-100">
+                Kerja bagus! Terus semangat belajar Bahasa Indonesia ya!
+            </p>
 
-    function goToTeacherLogin() {
-      document.getElementById('inputTeacherPin').value = '';
-      document.getElementById('pinErrorMsg').classList.add('hidden');
-      showSection('secTeacherLogin');
-    }
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-3">
+                <button onclick="restartQuiz()" class="flex-1 py-3 bg-sky-500 hover:bg-sky-600 text-white font-bold rounded-2xl shadow-md transition btn-bounce">
+                    🔄 Ulangi Kuis
+                </button>
+            </div>
 
-    function verifyTeacherPin(e) {
-      e.preventDefault();
-      const pin = document.getElementById('inputTeacherPin').value;
-      if (pin === "1234") {
-        renderTeacherDashboard();
-        showSection('secTeacherDashboard');
-      } else {
-        document.getElementById('pinErrorMsg').classList.remove('hidden');
-      }
-    }
+        </div>
+    </div>
 
-    /* -------------------------------------------------------------------
-       5. QUIZ ENGINE LOGIC
-    ------------------------------------------------------------------- */
-    function startQuiz(e) {
-      e.preventDefault();
-      currentStudent.name = document.getElementById('inputStudentName').value.trim();
-      currentStudent.class = document.getElementById('selectStudentClass').value;
-      
-      currentQuestionIdx = 0;
-      score = 0;
-      studentAnswers = [];
+    <script>
+        // Comprehensive Question Bank for Bahasa Indonesia Kelas 3 Bab 2 "Kawan Seiring"
+        const questionsData = [
+            {
+                category: "Struktur Cerita",
+                question: "Bagian manakah dari cerita yang bertugas mengenalkan tokoh utama dan tempat kejadian cerita?",
+                visual: "📖 Contoh: Pada suatu hari di sekolah, Lani dan Budi sedang duduk bersama...",
+                options: [
+                    "Bagian Awal Cerita",
+                    "Bagian Tengah Cerita",
+                    "Bagian Akhir Cerita"
+                ],
+                answer: 0,
+                explanation: "Bagian AWAL cerita berisi pengenalan tokoh (siapa saja yang ada) dan tempat atau latar kejadian."
+            },
+            {
+                category: "Fakta & Fiksi",
+                question: "Manakah kalimat di bawah ini yang merupakan contoh KALIMAT FIKSI (khayalan)?",
+                visual: "💭 Cerita fiksi adalah cerita buatan atau hasil imajinasi yang tidak terjadi di dunia nyata.",
+                options: [
+                    "Kucing itu tidur lelap di teras rumah.",
+                    "Burung hantu itu memakai kacamata dan membaca buku cerita.",
+                    "Anak-anak bermain bola di lapangan sekolah."
+                ],
+                answer: 1,
+                explanation: "Burung hantu membaca buku adalah hal fiksi (imajinasi) karena hewan di dunia nyata tidak bisa membaca buku."
+            },
+            {
+                category: "Fakta & Fiksi",
+                question: "Kalimat: 'Matahari terbit di sebelah timur pada pagi hari.' Kalimat tersebut termasuk...",
+                visual: "☀️ Kejadian ini benar-benar terjadi dan bisa kita lihat setiap hari.",
+                options: [
+                    "Kalimat Fiksi",
+                    "Kalimat Fakta",
+                    "Kalimat Dongeng"
+                ],
+                answer: 1,
+                explanation: "Kalimat FAKTA adalah pernyataan tentang hal yang benar-benar nyata terjadi."
+            },
+            {
+                category: "Struktur Cerita",
+                question: "Masalah, peristiwa penting, dan pengalaman yang dialami tokoh terdapat pada bagian...",
+                visual: "⚡ Contoh: Lani kehilangan pensil kesayangannya dan meminta bantuan Budi untuk mencari...",
+                options: [
+                    "Bagian Awal Cerita",
+                    "Bagian Tengah Cerita",
+                    "Bagian Akhir Cerita"
+                ],
+                answer: 1,
+                explanation: "Bagian TENGAH cerita menceritakan peristiwa, petualangan, atau masalah yang dihadapi oleh tokoh."
+            },
+            {
+                category: "Kalimat Tunggal",
+                question: "Manakah di bawah ini yang merupakan contoh KALIMAT TUNGGAL?",
+                visual: "📝 Kalimat tunggal hanya memiliki 1 Subjek (pelaku) dan 1 Predikat (kegiatan).",
+                options: [
+                    "Rani membaca buku di perpustakaan.",
+                    "Rani membaca buku dan Budi menulis surat di kelas.",
+                    "Rani membaca buku ketika hujan turun dengan deras."
+                ],
+                answer: 0,
+                explanation: "'Rani membaca buku di perpustakaan' adalah kalimat tunggal karena terdiri dari 1 Subjek (Rani) & 1 Predikat (membaca)."
+            },
+            {
+                category: "Sikap Berteman (Kawan Seiring)",
+                question: "Ketika pensil temanmu jatuh ke lantai, sikap teman yang baik adalah...",
+                visual: "🤝 Berteman baik berarti saling membantu dan peduli sesama teman.",
+                options: [
+                    "Melihatnya saja dan berpura-pura tidak tahu",
+                    "Membantu mengambilkan pensil dengan ramah",
+                    "Mentertawakan teman yang menjatuhkan pensil"
+                ],
+                answer: 1,
+                explanation: "Teman yang baik senantiasa membantu temannya yang membutuhkan pertolongan dengan sikap yang ramah."
+            },
+            {
+                category: "Kalimat Transitif & Intransitif",
+                question: "Kalimat yang membutuhkan OBJEK agar kalimatnya menjadi utuh disebut kalimat...",
+                visual: "🔍 Contoh: 'Budi membawa (apa?)' -> 'Budi membawa tas' (Tas = Objek)",
+                options: [
+                    "Kalimat Transitif",
+                    "Kalimat Intransitif",
+                    "Kalimat Tanya"
+                ],
+                answer: 0,
+                explanation: "Kalimat TRANSITIF adalah kalimat yang membutuhkan objek (penderita/penerima tindakan)."
+            },
+            {
+                category: "Kalimat Transitif & Intransitif",
+                question: "Kalimat: 'Lani tertawa gembira.' Kalimat ini tidak memerlukan objek. Kalimat ini disebut...",
+                visual: "😊 Kalimat ini sudah jelas maknanya tanpa perlu kata benda tambahan di belakangnya.",
+                options: [
+                    "Kalimat Transitif",
+                    "Kalimat Intransitif",
+                    "Kalimat Majemuk"
+                ],
+                answer: 1,
+                explanation: "Kalimat INTRANSITIF adalah kalimat yang TIDAK memerlukan objek."
+            },
+            {
+                category: "Kata Sapaan & Kesopanan",
+                question: "Kata yang wajib kita ucapkan setelah menerima bantuan atau pemberian dari teman adalah...",
+                visual: "🎁 Menghargai kebaikan teman dengan kalimat sopan.",
+                options: [
+                    "Minta maaf",
+                    "Permisi",
+                    "Terima kasih"
+                ],
+                answer: 2,
+                explanation: "Mengucapkan 'Terima kasih' adalah bentuk kesopanan dan rasa menghargai bantuan teman."
+            },
+            {
+                category: "Struktur Cerita",
+                question: "Bagian cerita yang berisi penyelesaian masalah dan pesan moral (kesimpulan) terdapat pada...",
+                visual: "🌈 Contoh: Akhirnya Budi dan Lani tersenyum dan berjanji akan selalu saling membantu...",
+                options: [
+                    "Bagian Awal Cerita",
+                    "Bagian Tengah Cerita",
+                    "Bagian Akhir Cerita"
+                ],
+                answer: 2,
+                explanation: "Bagian AKHIR cerita memberikan kesimpulan, penyelesaian masalah, serta pesan kebaikan dari cerita."
+            }
+        ];
 
-      showSection('secQuiz');
-      loadQuestion();
-    }
+        let currentQuestionIndex = 0;
+        let userAnswers = new Array(questionsData.length).fill(null);
+        let score = 0;
+        let soundEnabled = true;
+        let isLargeText = false;
 
-    function loadQuestion() {
-      const q = quizQuestions[currentQuestionIdx];
-      document.getElementById('txtQuestionProgress').innerText = `Soal ${currentQuestionIdx + 1} dari ${quizQuestions.length}`;
-      document.getElementById('barProgress').style.width = `${((currentQuestionIdx + 1) / quizQuestions.length) * 100}%`;
-      document.getElementById('txtCurrentScore').innerText = `Skor: ${score}`;
+        // Web Audio API Synthesizer for sound effects
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        let audioCtx = null;
 
-      document.getElementById('svgContainer').innerHTML = q.svg;
-      document.getElementById('txtQuestion').innerText = q.question;
+        function playSoundEffect(type) {
+            if (!soundEnabled) return;
+            try {
+                if (!audioCtx) audioCtx = new AudioCtx();
+                if (audioCtx.state === 'suspended') audioCtx.resume();
 
-      const optsBox = document.getElementById('optsContainer');
-      optsBox.innerHTML = '';
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
 
-      q.options.forEach((optText, idx) => {
-        const btn = document.createElement('button');
-        btn.className = "btn-bounce w-full text-left p-4 rounded-2xl border-2 border-slate-100 hover:border-sky-300 bg-white font-medium text-sm sm:text-base text-slate-700 shadow-sm transition flex items-center justify-between";
-        btn.innerHTML = `<span>${optText}</span> <span class="text-slate-300 text-xs">➔</span>`;
-        btn.onclick = () => selectAnswer(idx);
-        optsBox.appendChild(btn);
-      });
-    }
+                if (type === 'correct') {
+                    // Happy chime (C5 to G5)
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
+                    osc.frequency.exponentialRampToValueAtTime(783.99, audioCtx.currentTime + 0.15); // G5
+                    gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.3);
+                } else if (type === 'wrong') {
+                    // Soft low pop
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(220, audioCtx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(130, audioCtx.currentTime + 0.2);
+                    gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.2);
+                } else if (type === 'click') {
+                    // Gentle tap sound
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+                    gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.08);
+                }
+            } catch (e) {
+                console.log("Audio not supported or blocked");
+            }
+        }
 
-    function selectAnswer(chosenIdx) {
-      const q = quizQuestions[currentQuestionIdx];
-      const isCorrect = (chosenIdx === q.correctIndex);
+        function readCurrentQuestion() {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); // Stop current speech
+                const q = questionsData[currentQuestionIndex];
+                let textToRead = q.question + ". Pilihan jawaban: ";
+                q.options.forEach((opt, idx) => {
+                    textToRead += `Pilihan ${idx + 1}: ${opt}. `;
+                });
 
-      if (isCorrect) {
-        score += 20;
-        playSound('correct');
-      } else {
-        playSound('wrong');
-      }
+                const utterance = new SpeechSynthesisUtterance(textToRead);
+                utterance.lang = 'id-ID';
+                utterance.rate = 0.9; // Slower rate for easy understanding
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("Fitur suara pembaca teks belum didukung di peramban ini.");
+            }
+        }
 
-      studentAnswers.push({
-        questionId: q.id,
-        questionText: q.question,
-        chosen: q.options[chosenIdx],
-        correct: q.options[q.correctIndex],
-        isCorrect: isCorrect,
-        explanation: q.explanation
-      });
+        function renderQuestion() {
+            const q = questionsData[currentQuestionIndex];
+            
+            // Update progress & headers
+            document.getElementById('qNumBadge').innerText = currentQuestionIndex + 1;
+            document.getElementById('currentQText').innerText = currentQuestionIndex + 1;
+            document.getElementById('totalQText').innerText = questionsData.length;
+            
+            const progressPercent = ((currentQuestionIndex + 1) / questionsData.length) * 100;
+            document.getElementById('progressBar').style.width = `${progressPercent}%`;
 
-      currentQuestionIdx++;
+            // Category & Question Title
+            document.getElementById('questionCategory').innerText = q.category;
+            document.getElementById('questionTitle').innerText = q.question;
 
-      if (currentQuestionIdx < quizQuestions.length) {
-        loadQuestion();
-      } else {
-        finishQuiz();
-      }
-    }
+            // Context Box
+            const visualBox = document.getElementById('visualBox');
+            const visualText = document.getElementById('visualText');
+            if (q.visual) {
+                visualText.innerText = q.visual;
+                visualBox.classList.remove('hidden');
+            } else {
+                visualBox.classList.add('hidden');
+            }
 
-    function finishQuiz() {
-      saveScoreToStorage();
+            // Options Grid
+            const container = document.getElementById('optionsContainer');
+            container.innerHTML = '';
 
-      document.getElementById('txtFinalScore').innerText = score;
-      document.getElementById('txtScoreDetail').innerText = `${score / 20} dari ${quizQuestions.length} Soal Benar`;
+            const selectedAns = userAnswers[currentQuestionIndex];
 
-      if (score >= 80) {
-        document.getElementById('txtResultEmoji').innerText = "🏆";
-        document.getElementById('txtResultTitle').innerText = "Hebat Sekali!";
-        playSound('fanfare');
-      } else {
-        document.getElementById('txtResultEmoji').innerText = "👏";
-        document.getElementById('txtResultTitle').innerText = "Bagus! Tetap Semangat!";
-      }
+            q.options.forEach((optText, index) => {
+                const btn = document.createElement('button');
+                btn.className = `w-full text-left p-4 rounded-2xl border-2 transition-all flex items-center justify-between font-medium btn-bounce option-text text-sm sm:text-base`;
+                
+                // Style based on selection status
+                if (selectedAns === null) {
+                    btn.classList.add('bg-white', 'border-slate-200', 'hover:border-sky-300', 'hover:bg-sky-50/50', 'text-slate-700');
+                    btn.onclick = () => selectOption(index);
+                } else {
+                    // Disabled state after picking
+                    btn.disabled = true;
+                    if (index === q.answer) {
+                        btn.classList.add('bg-emerald-50', 'border-emerald-500', 'text-emerald-900', 'font-bold');
+                    } else if (index === selectedAns) {
+                        btn.classList.add('bg-rose-50', 'border-rose-400', 'text-rose-900');
+                    } else {
+                        btn.classList.add('bg-slate-50', 'border-slate-200', 'text-slate-400', 'opacity-60');
+                    }
+                }
 
-      // Render Feedback / Pembahasan List
-      const reviewBox = document.getElementById('feedbackReviewList');
-      reviewBox.innerHTML = '';
+                // Inner content
+                const letterBadge = String.fromCharCode(65 + index); // A, B, C
+                btn.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-xl bg-slate-100 flex items-center justify-center font-bold text-slate-600 text-xs shrink-0 border border-slate-200">
+                            ${letterBadge}
+                        </span>
+                        <span>${optText}</span>
+                    </div>
+                    ${selectedAns !== null && index === q.answer ? '<span>✅</span>' : ''}
+                    ${selectedAns !== null && index === selectedAns && index !== q.answer ? '<span>❌</span>' : ''}
+                `;
 
-      studentAnswers.forEach((ans, i) => {
-        const item = document.createElement('div');
-        item.className = `p-3.5 rounded-2xl border text-xs sm:text-sm ${ans.isCorrect ? 'bg-emerald-50 border-emerald-200' : 'bg-rose-50 border-rose-200'}`;
-        item.innerHTML = `
-          <div class="font-bold text-slate-800 mb-1">Soal ${i + 1}: ${ans.isCorrect ? '🟢 Benar (+20)' : '🔴 Perlu Ditinjau (+0)'}</div>
-          <div class="text-slate-600 mb-1"><strong>Jawaban Kamu:</strong> ${ans.chosen}</div>
-          ${!ans.isCorrect ? `<div class="text-emerald-700 font-semibold mb-1"><strong>Kunci Jawaban:</strong> ${ans.correct}</div>` : ''}
-          <div class="text-slate-600 italic mt-1.5 bg-white/70 p-2.5 rounded-xl border border-slate-100">💡 <strong>Penjelasan:</strong> ${ans.explanation}</div>
-        `;
-        reviewBox.appendChild(item);
-      });
+                container.appendChild(btn);
+            });
 
-      showSection('secResult');
-    }
+            // Feedback Box Handling
+            const feedbackBox = document.getElementById('feedbackBox');
+            const feedbackTitle = document.getElementById('feedbackTitle');
+            const feedbackText = document.getElementById('feedbackText');
+            const feedbackIcon = document.getElementById('feedbackIcon');
 
-    /* -------------------------------------------------------------------
-       6. LOCALSTORAGE & TEACHER DASHBOARD LOGIC
-    ------------------------------------------------------------------- */
-    function saveScoreToStorage() {
-      const records = JSON.parse(localStorage.getItem('quiz_bab2_records') || '[]');
-      const newRecord = {
-        name: currentStudent.name,
-        class: currentStudent.class,
-        score: score,
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-      };
-      records.push(newRecord);
-      localStorage.setItem('quiz_bab2_records', JSON.stringify(records));
-    }
+            if (selectedAns !== null) {
+                feedbackBox.classList.remove('hidden');
+                feedbackText.innerText = q.explanation;
+                if (selectedAns === q.answer) {
+                    feedbackBox.className = "mt-6 p-4 rounded-2xl border bg-emerald-50 border-emerald-200 text-emerald-900";
+                    feedbackIcon.innerText = "🎉";
+                    feedbackTitle.innerText = "Benar Sekali!";
+                } else {
+                    feedbackBox.className = "mt-6 p-4 rounded-2xl border bg-amber-50 border-amber-200 text-amber-900";
+                    feedbackIcon.innerText = "💡";
+                    feedbackTitle.innerText = "Pembahasan:";
+                }
+            } else {
+                feedbackBox.classList.add('hidden');
+            }
 
-    function renderTeacherDashboard() {
-      const records = JSON.parse(localStorage.getItem('quiz_bab2_records') || '[]');
-      const tbody = document.getElementById('tblScoresBody');
-      tbody.innerHTML = '';
+            // Navigation Buttons State
+            document.getElementById('btnPrev').disabled = (currentQuestionIndex === 0);
+            
+            const btnNext = document.getElementById('btnNext');
+            if (selectedAns !== null) {
+                btnNext.disabled = false;
+                if (currentQuestionIndex === questionsData.length - 1) {
+                    btnNext.innerHTML = `<span>Selesai</span> <span>🏆</span>`;
+                } else {
+                    btnNext.innerHTML = `<span>Lanjut</span> <span>➡️</span>`;
+                }
+            } else {
+                btnNext.disabled = true;
+            }
+        }
 
-      let totalScore = 0;
+        function selectOption(index) {
+            playSoundEffect('click');
+            userAnswers[currentQuestionIndex] = index;
+            
+            const q = questionsData[currentQuestionIndex];
+            if (index === q.answer) {
+                score += 10;
+                playSoundEffect('correct');
+            } else {
+                playSoundEffect('wrong');
+            }
 
-      records.forEach((rec, idx) => {
-        totalScore += rec.score;
-        const tr = document.createElement('tr');
-        tr.className = "border-b border-slate-100 hover:bg-slate-50 transition";
-        tr.innerHTML = `
-          <td class="p-3 font-medium text-slate-400">${idx + 1}</td>
-          <td class="p-3 font-bold text-slate-800">${rec.name}</td>
-          <td class="p-3"><span class="px-2.5 py-1 bg-sky-100 text-sky-700 rounded-lg font-semibold">${rec.class}</span></td>
-          <td class="p-3 font-bold ${rec.score >= 80 ? 'text-emerald-600' : 'text-amber-600'}">${rec.score}</td>
-          <td class="p-3 text-slate-400">${rec.time}</td>
-        `;
-        tbody.appendChild(tr);
-      });
+            document.getElementById('scoreText').innerText = `${score} Poin`;
+            renderQuestion();
+        }
 
-      document.getElementById('statTotalStudents').innerText = records.length;
-      document.getElementById('statAverageScore').innerText = records.length ? Math.round(totalScore / records.length) : 0;
-    }
+        function nextQuestion() {
+            playSoundEffect('click');
+            // Cancel TTS if speaking
+            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
 
-    function filterTable() {
-      const query = document.getElementById('inputSearchStudent').value.toLowerCase();
-      const rows = document.querySelectorAll('#tblScoresBody tr');
-      rows.forEach(row => {
-        const text = row.innerText.toLowerCase();
-        row.style.display = text.includes(query) ? '' : 'none';
-      });
-    }
+            if (currentQuestionIndex < questionsData.length - 1) {
+                currentQuestionIndex++;
+                renderQuestion();
+            } else {
+                showResults();
+            }
+        }
 
-    function clearAllData() {
-      if (confirm("Apakah Bapak/Ibu guru yakin ingin menghapus seluruh data rekap nilai?")) {
-        localStorage.removeItem('quiz_bab2_records');
-        renderTeacherDashboard();
-      }
-    }
+        function prevQuestion() {
+            playSoundEffect('click');
+            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
 
-    function exportToCSV() {
-      const records = JSON.parse(localStorage.getItem('quiz_bab2_records') || '[]');
-      if (records.length === 0) {
-        alert("Belum ada data nilai siswa untuk diunduh.");
-        return;
-      }
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                renderQuestion();
+            }
+        }
 
-      let csv = "No,Nama Siswa,Kelas,Skor Formatif,Waktu\n";
-      records.forEach((r, i) => {
-        csv += `${i + 1},"${r.name}",${r.class},${r.score},"${r.time}"\n`;
-      });
+        function showResults() {
+            playSoundEffect('correct');
+            
+            let correctCount = 0;
+            userAnswers.forEach((ans, idx) => {
+                if (ans === questionsData[idx].answer) correctCount++;
+            });
 
-      const blob = new Blob([csv], { type: 'text/csv' });
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `Rekap_Asesmen_Formatif_Bab2_Bahasa_Indonesia_${new Date().toISOString().slice(0,10)}.csv`;
-      a.click();
-    }
-  </script>
+            document.getElementById('finalScoreText').innerText = score;
+            document.getElementById('finalCorrectText').innerText = `${correctCount} / ${questionsData.length}`;
+
+            const msg = document.getElementById('resultMessage');
+            if (score >= 80) {
+                msg.innerText = "🌟 Luar biasa! Kamu sudah sangat memahami materi Bab 2 Kawan Seiring!";
+            } else if (score >= 60) {
+                msg.innerText = "👍 Bagus sekali! Tingkatkan terus latihanmu ya!";
+            } else {
+                msg.innerText = "💪 Tetap semangat! Kamu bisa membaca ulang materi Bab 2 dan mencoba lagi!";
+            }
+
+            document.getElementById('resultModal').classList.remove('hidden');
+        }
+
+        function restartQuiz() {
+            playSoundEffect('click');
+            currentQuestionIndex = 0;
+            userAnswers.fill(null);
+            score = 0;
+            document.getElementById('scoreText').innerText = `0 Poin`;
+            document.getElementById('resultModal').classList.add('hidden');
+            renderQuestion();
+        }
+
+        function toggleTextSize() {
+            playSoundEffect('click');
+            isLargeText = !isLargeText;
+            const container = document.getElementById('quizContainer');
+            if (isLargeText) {
+                container.classList.add('text-large-mode');
+                document.getElementById('btnTextSize').classList.add('bg-sky-100', 'text-sky-800');
+            } else {
+                container.classList.remove('text-large-mode');
+                document.getElementById('btnTextSize').classList.remove('bg-sky-100', 'text-sky-800');
+            }
+        }
+
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            document.getElementById('soundIcon').innerText = soundEnabled ? '🔊' : '🔇';
+            document.getElementById('soundText').innerText = soundEnabled ? 'Suara' : 'Mute';
+            if (soundEnabled) playSoundEffect('click');
+        }
+
+        // Initialize quiz on load
+        window.onload = function() {
+            renderQuestion();
+        };
+    </script>
 </body>
 </html>
